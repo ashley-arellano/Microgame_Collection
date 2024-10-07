@@ -48,7 +48,7 @@ public class MainMenuState : BaseState
     }
     public override void DestroyState(){
         ///wraps things up
-        SceneManager.LoadScene("GameMode", LoadSceneMode.Single);
+        SceneManager.LoadScene("LevelSelectMode", LoadSceneMode.Single);
     }
     
 }
