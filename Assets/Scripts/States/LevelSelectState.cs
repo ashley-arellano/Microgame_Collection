@@ -7,18 +7,16 @@ using UnityEngine.UI;
 public class LevelSelectState : BaseState
 {
     //Scene should be LevelSelectState
-    // private Button playButton;
-    // private Button quitButton;
+    private Dictionary<string, Button> levelSelectButtons = new Dictionary<string, Button>();
     public override void EnterState(GameStateMachine gameStateMachine){
-        // if(gameStateMachine.UIMenuElements == null){
-        //     Debug.Log("null");
-        // }
-        // if(gameStateMachine.UIMenuElements.Button1 != null){
-        //     playButton = gameStateMachine.UIMenuElements.InstaniateButton(gameStateMachine.UIMenuElements.Button1);
-        // }
-        // if(gameStateMachine.UIMenuElements.Button2 != null){
-        //     quitButton = gameStateMachine.UIMenuElements.InstaniateButton(gameStateMachine.UIMenuElements.Button2);
-        // }
+        if(gameStateMachine.UIMenuElements !=  null){
+           levelSelectButtons = gameStateMachine.UIMenuElements.ButtonPrefabDic;
+           Debug.Log("count"+levelSelectButtons.Count);
+        }
+        //testing purposes only
+       levelSelectButtons["Level1"].onClick.AddListener(() => Debug.Log("Level 1 clicked"));
+        levelSelectButtons["Level2"].onClick.AddListener(() => Debug.Log("Level 2 clicked"));
+        levelSelectButtons["Level3"].onClick.AddListener(() => Debug.Log("Level 3 clicked"));
     }
     public override void UpdateState(GameStateMachine gameStateMachine){
 

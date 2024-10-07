@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 103787769}
   m_Layer: 5
   m_Name: ButtonPanel
-  m_TagString: Untagged
+  m_TagString: ButtonPanel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -242,7 +242,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateMachine: {fileID: 459221433}
-  uIMenuElements: {fileID: 103787769}
 --- !u!4 &459221435
 Transform:
   m_ObjectHideFlags: 0

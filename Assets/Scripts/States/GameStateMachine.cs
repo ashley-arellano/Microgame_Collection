@@ -18,7 +18,6 @@ public class GameStateMachine : MonoBehaviour
         get {return uIMenuElements;} 
     }
     
-    [SerializeField]
     private UIMenuElements uIMenuElements;
     public States States {
         get {return states;} 
@@ -28,6 +27,10 @@ public class GameStateMachine : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //temp for now; going to add scene handler which will have a thing
+        //that subcribes to when a new scene is loaded and done being loaded
+        //and this will be the function that is called for it***
+        uIMenuElements = GameObject.FindWithTag("ButtonPanel").GetComponent<UIMenuElements>();
         states = new States();
         //starting state for game state machine
         currentState = states.MainMenuState;
@@ -46,11 +49,11 @@ public class GameStateMachine : MonoBehaviour
     //transition through states
     public void SwitchState(BaseState state){
         // If we currently have state, then destroy it
-        if (currentState != null)
-        {
+        if (currentState != null){
             currentState.DestroyState();
         }
         currentState = state;
         currentState.EnterState(this);
     }
+    // /uIMenuElements = GameObject.FindWithTag("ButtonPanel").GetComponent<UIMenuElements>();
 }

@@ -12,12 +12,14 @@ public class MainMenuState : BaseState
     private bool startGame;
     private bool exitGame;
     public override void EnterState(GameStateMachine gameStateMachine){
+       
         startGame = false;
         exitGame = false;
         if(gameStateMachine.UIMenuElements !=  null){
            // instaniatedButtons = gameStateMachine.UIMenuElements.InstaniateAllButtons();
            mainMenuButtons = gameStateMachine.UIMenuElements.ButtonPrefabDic;
-            //Debug.Log(mainMenuButtons.Count);
+            Debug.Log("Main count:"+mainMenuButtons.Count);
+            
         }
         
         mainMenuButtons["quitButton"].onClick.AddListener(() => exitGame = true);
@@ -47,6 +49,7 @@ public class MainMenuState : BaseState
     public override void DestroyState(){
         ///wraps things up
         SceneManager.LoadScene("LevelSelectMode", LoadSceneMode.Single);
+        
     }
     
 }
