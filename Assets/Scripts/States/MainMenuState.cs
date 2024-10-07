@@ -1,31 +1,26 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
+using System;
 
 //concrete state of fsm
 //Scene should be MainMenuMode
 public class MainMenuState : BaseState 
 {
-    private Button playButton;
-    private Button quitButton;
+    private Dictionary<string, Button> instaniatedButtons = new Dictionary<string, Button>();
     private bool startGame;
     private bool exitGame;
     public override void EnterState(GameStateMachine gameStateMachine){
         startGame = false;
         exitGame = false;
+        if(gameStateMachine.UIMenuElements !=  null){
+            instaniatedButtons = gameStateMachine.UIMenuElements.InstaniateAllButtons();
+        }
+        instaniatedButtons["playButton"].onClick.AddListener(() => startGame = true);
+        instaniatedButtons["quitButton"].onClick.AddListener(() => exitGame = true);
 
-        if(gameStateMachine.UIMenuElements == null){
-            Debug.Log("null");
-        }
-        if(gameStateMachine.UIMenuElements.Button1 != null){
-            playButton = gameStateMachine.UIMenuElements.InstaniateButton(gameStateMachine.UIMenuElements.Button1);
-        }
-        if(gameStateMachine.UIMenuElements.Button2 != null){
-            quitButton = gameStateMachine.UIMenuElements.InstaniateButton(gameStateMachine.UIMenuElements.Button2);
-        }
 
-        playButton.onClick.AddListener(() => startGame = true);
-        quitButton.onClick.AddListener(() => exitGame = true);
         //inital state
         //should call elsewhere to pull UI
         //so will use prefab instance of ui
