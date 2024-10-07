@@ -12,6 +12,8 @@ public class StringButtonPair : MonoBehaviour
     public Button Value{
         get{return value;}
     }
+    [SerializeField]
     private string key;
+    [SerializeField]
     private Button value;
 }

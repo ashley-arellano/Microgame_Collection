@@ -8,18 +8,20 @@ using System;
 //Scene should be MainMenuMode
 public class MainMenuState : BaseState 
 {
-    private Dictionary<string, Button> instaniatedButtons = new Dictionary<string, Button>();
+    private Dictionary<string, Button> mainMenuButtons = new Dictionary<string, Button>();
     private bool startGame;
     private bool exitGame;
     public override void EnterState(GameStateMachine gameStateMachine){
         startGame = false;
         exitGame = false;
         if(gameStateMachine.UIMenuElements !=  null){
-            instaniatedButtons = gameStateMachine.UIMenuElements.InstaniateAllButtons();
+           // instaniatedButtons = gameStateMachine.UIMenuElements.InstaniateAllButtons();
+           mainMenuButtons = gameStateMachine.UIMenuElements.ButtonPrefabDic;
+            //Debug.Log(mainMenuButtons.Count);
         }
-        instaniatedButtons["playButton"].onClick.AddListener(() => startGame = true);
-        instaniatedButtons["quitButton"].onClick.AddListener(() => exitGame = true);
-
+        
+        mainMenuButtons["quitButton"].onClick.AddListener(() => exitGame = true);
+        mainMenuButtons["playButton"].onClick.AddListener(() => startGame = true);
 
         //inital state
         //should call elsewhere to pull UI
@@ -37,6 +39,7 @@ public class MainMenuState : BaseState
         }
 
         if(exitGame){
+            Debug.Log("Quit");
             Application.Quit();
         }
         
