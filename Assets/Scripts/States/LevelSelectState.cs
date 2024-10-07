@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //concrete state of fsm
-public class PlayState : BaseState 
+public class LevelSelectState : BaseState
 {
     //Scene should be PlayMode
     public override void EnterState(GameStateMachine gameStateMachine){

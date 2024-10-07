@@ -38,7 +38,7 @@ public class MainMenuState : BaseState
         ///if else for changing to next state
         ///
         if(startGame){
-            gameStateMachine.SwitchState(gameStateMachine.States.PlayState);
+            gameStateMachine.SwitchState(gameStateMachine.States.LevelSelectState);
         }
 
         if(exitGame){

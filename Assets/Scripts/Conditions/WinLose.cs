@@ -6,7 +6,7 @@ using UnityEngine;
 //soooo, not sure
 //for nailpolis minigame, i need it to register win condition as
 //both hands having painted nails
-public class WinLose : MonoBehaviour
+public class WinLose 
 {
 
 }
