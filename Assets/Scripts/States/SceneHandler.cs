@@ -16,12 +16,13 @@ public class SceneHandler : MonoBehaviour
         setUpWrapper?.Invoke();
         
     }
-   public void OnLoadScene(string newSceneName, string oldSceneName, System.Action setUpWrapper = null){
-      if(oldSceneName !=  null){
-         //Unload
-         SceneManager.UnloadSceneAsync(oldSceneName);
-      }
+   public void OnLoadScene(string newSceneName, System.Action setUpWrapper = null){
       StartCoroutine(LoadNewScene(newSceneName, setUpWrapper));
+   }
+
+   public void OnUnloadScene(string oldSceneName){
+      //Unload
+      SceneManager.UnloadSceneAsync(oldSceneName);
    }
 
 }

@@ -9,10 +9,6 @@ public class GameStateMachine : MonoBehaviour
 {
     [SerializeField]
     private GameObject stateMachine;
-    private void Awake()
-    {
-        DontDestroyOnLoad(stateMachine);
-    }
     public SceneHandler SceneHandler{ 
         get{return sceneHandler;}  
     }
