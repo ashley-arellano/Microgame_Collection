@@ -13,9 +13,14 @@ public class GameStateMachine : MonoBehaviour
     {
         DontDestroyOnLoad(stateMachine);
     }
+    public SceneHandler SceneHandler{ 
+        get{return sceneHandler;}  
+    }
+    [SerializeField]
+    private SceneHandler sceneHandler;
     private BaseState currentState;
     public UIMenuElements UIMenuElements{
-        get {return uIMenuElements;} 
+        get {return uIMenuElements;} set{uIMenuElements = value;}
     }
     
     private UIMenuElements uIMenuElements;
@@ -24,13 +29,15 @@ public class GameStateMachine : MonoBehaviour
     }
     //Reference to all states
     private States states;
+
     // Start is called before the first frame update
     void Start()
     {
         //temp for now; going to add scene handler which will have a thing
         //that subcribes to when a new scene is loaded and done being loaded
         //and this will be the function that is called for it***
-        uIMenuElements = GameObject.FindWithTag("ButtonPanel").GetComponent<UIMenuElements>();
+
+        //uIMenuElements = GameObject.FindWithTag("ButtonPanel").GetComponent<UIMenuElements>();
         states = new States();
         //starting state for game state machine
         currentState = states.MainMenuState;
@@ -50,7 +57,7 @@ public class GameStateMachine : MonoBehaviour
     public void SwitchState(BaseState state){
         // If we currently have state, then destroy it
         if (currentState != null){
-            currentState.DestroyState();
+            currentState.DestroyState(this);
         }
         currentState = state;
         currentState.EnterState(this);

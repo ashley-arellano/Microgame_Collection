@@ -9,33 +9,21 @@ using System;
 public class MainMenuState : BaseState 
 {
     private Dictionary<string, Button> mainMenuButtons = new Dictionary<string, Button>();
-    private bool startGame;
-    private bool exitGame;
+    private bool startGame = false;
+    private bool exitGame = false;
+    private bool canSetUp = false;
     public override void EnterState(GameStateMachine gameStateMachine){
-       
-        startGame = false;
-        exitGame = false;
-        if(gameStateMachine.UIMenuElements !=  null){
-           // instaniatedButtons = gameStateMachine.UIMenuElements.InstaniateAllButtons();
-           mainMenuButtons = gameStateMachine.UIMenuElements.ButtonPrefabDic;
-            Debug.Log("Main count:"+mainMenuButtons.Count);
-            
-        }
-        
-        mainMenuButtons["quitButton"].onClick.AddListener(() => exitGame = true);
-        mainMenuButtons["playButton"].onClick.AddListener(() => startGame = true);
-
-        //inital state
-        //should call elsewhere to pull UI
-        //so will use prefab instance of ui
-        //will have to store all of them in one place
-        //rare time with i could use singleton design in a good way
-        //ui menus should only have one instance of
+       //Will eventuall call SetUp to setup the state
+        gameStateMachine.SceneHandler.OnLoadScene("MainMenuMode",null, SetUpWrapper);
     }
     public override void UpdateState(GameStateMachine gameStateMachine){
         ///changes to current state
         ///if else for changing to next state
         ///
+        if(canSetUp){
+            SetUpState(gameStateMachine);
+        }
+
         if(startGame){
             gameStateMachine.SwitchState(gameStateMachine.States.LevelSelectState);
         }
@@ -46,10 +34,25 @@ public class MainMenuState : BaseState
         }
         
     }
-    public override void DestroyState(){
+    public override void DestroyState(GameStateMachine gameStateMachine){
         ///wraps things up
-        SceneManager.LoadScene("LevelSelectMode", LoadSceneMode.Single);
-        
+        gameStateMachine.SceneHandler.OnLoadScene("LevelSelectMode","MainMenuMode");
     }
     
+    public override void SetUpWrapper(){
+        canSetUp = true;
+    }
+
+    public override void SetUpState(GameStateMachine gameStateMachine){
+        gameStateMachine.UIMenuElements = GameObject.FindWithTag("ButtonPanel").GetComponent<UIMenuElements>();
+        
+        if(gameStateMachine.UIMenuElements !=  null){
+           // instaniatedButtons = gameStateMachine.UIMenuElements.InstaniateAllButtons();
+           mainMenuButtons = gameStateMachine.UIMenuElements.ButtonPrefabDic;  
+           mainMenuButtons["quitButton"].onClick.AddListener(() => exitGame = true);
+           mainMenuButtons["playButton"].onClick.AddListener(() => startGame = true);
+        }
+    }
+
+
 }

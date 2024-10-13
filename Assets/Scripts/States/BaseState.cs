@@ -7,5 +7,7 @@ public abstract class BaseState
 {
    public abstract void EnterState(GameStateMachine gameStateMachine);
    public abstract void UpdateState(GameStateMachine gameStateMachine);
-   public abstract void DestroyState( );
+   public abstract void DestroyState(GameStateMachine gameStateMachine );
+   public abstract void SetUpState(GameStateMachine gameStateMachine);
+   public abstract void SetUpWrapper();
 }
