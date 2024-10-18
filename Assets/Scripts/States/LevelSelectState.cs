@@ -8,7 +8,6 @@ public class LevelSelectState : BaseState
 {
     //Scene should be LevelSelectState
     private bool canSetUp = false;
-    private string selectedLevel;
   
     private Dictionary<string, Button> levelSelectButtons = new Dictionary<string, Button>();
     public override void EnterState(GameStateMachine gameStateMachine){
@@ -28,29 +27,32 @@ public class LevelSelectState : BaseState
         canSetUp = true;
     }
     public override void SetUpState(GameStateMachine gameStateMachine){
-         gameStateMachine.UIMenuElements = GameObject.FindWithTag("ButtonPanel").GetComponent<UIMenuElements>();
+        canSetUp = false;
+        gameStateMachine.UIMenuElements = GameObject.FindWithTag("ButtonPanel").GetComponent<UIMenuElements>();
         
         if(gameStateMachine.UIMenuElements !=  null){
              levelSelectButtons = gameStateMachine.UIMenuElements.ButtonPrefabDic;
              string temp = "";
              for(int i = 0; i < levelSelectButtons.Count; i++){
-                temp += i+1;
-                levelSelectButtons[temp].onClick.AddListener(() => LevelSelect(temp));
-                temp = "";
+                temp = (i + 1).ToString();
+                if(levelSelectButtons.ContainsKey(temp)) {
+                    //lambda holds a reference to the variable so using another 
+                    //variable to hold value to avoid issues of reference changing to 
+                    //incorrect value
+                    string tempCopy = temp;
+                    levelSelectButtons[temp].onClick.AddListener(() => LevelSelect(tempCopy, gameStateMachine));
+                }
              }
-            //  levelSelectButtons["Level1"].onClick.AddListener(() => Debug.Log("Level 1 clicked"));
-            // levelSelectButtons["Level2"].onClick.AddListener(() => Debug.Log("Level 2 clicked"));
-            // levelSelectButtons["Level3"].onClick.AddListener(() => Debug.Log("Level 3 clicked"));
         }
     }
     //so, levelNumber is empty not sure why
-    private void LevelSelect( string levelNumber){
-        //need to add //remove all listeners code
-        Debug.Log(levelNumber);
+    private void LevelSelect(string levelNumber, GameStateMachine gameStateMachine){
+        //need to add 
+        //not sure if remove listners are needed since they will be moving to next scene
         switch(levelNumber){
             case "1":
                 Debug.Log("Level 1");
-                //gameStateMachine.SwitchState(gameStateMachine.States.LevelOneState);
+                gameStateMachine.SwitchState(gameStateMachine.States.LevelOneState);
                 break;
             case "2":
                 Debug.Log("Level 2");

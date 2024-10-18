@@ -4,28 +4,42 @@ using UnityEngine;
 
 public class LevelOneState : BaseState
 {
+    private bool canSetUp = false;
     public override void DestroyState(GameStateMachine gameStateMachine)
     {
-        throw new System.NotImplementedException();
+        gameStateMachine.SceneHandler.OnUnloadScene("LevelOne");
     }
 
     public override void EnterState(GameStateMachine gameStateMachine)
     {
-        throw new System.NotImplementedException();
+        gameStateMachine.SceneHandler.OnLoadScene("LevelOne", SetUpWrapper);
     }
 
     public override void SetUpState(GameStateMachine gameStateMachine)
-    {
-        throw new System.NotImplementedException();
+    {   
+        canSetUp = false;
+        //gameStateMachine.UIMenuElements = .GetComponent<UIMenuElements>();
+        
+        
+
     }
 
     public override void SetUpWrapper()
     {
-        throw new System.NotImplementedException();
+        canSetUp = true;
+    }
+
+    private void SetActivePauseMenu(){
+
+    }
+    private void SetInactivePauseMenu(){
+        
     }
 
     public override void UpdateState(GameStateMachine gameStateMachine)
     {
-        throw new System.NotImplementedException();
+        if(canSetUp){
+            SetUpState(gameStateMachine);
+        }
     }
 }

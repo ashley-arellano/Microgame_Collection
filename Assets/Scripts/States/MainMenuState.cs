@@ -45,6 +45,7 @@ public class MainMenuState : BaseState
     }
 
     public override void SetUpState(GameStateMachine gameStateMachine){
+        canSetUp = false;
         gameStateMachine.UIMenuElements = GameObject.FindWithTag("ButtonPanel").GetComponent<UIMenuElements>();
         
         if(gameStateMachine.UIMenuElements !=  null){
