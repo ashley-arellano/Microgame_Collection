@@ -50,8 +50,11 @@ public class OptionsMenuState : BaseMenuState
         //small problem
         //how to find which state called options menu
         //was it main menu, levelselect or pause?
-        Debug.Log("TBA: GoBackToLastState");
-        menuStateMachine.SwitchState(menuStateMachine.MenuStates.LevelSelectMenuState);
+        // Debug.Log("TBA: GoBackToLastState");
+        // menuStateMachine.SwitchState(menuStateMachine.MenuStates.LevelSelectMenuState);
+
+        //Assumption: When destroyed will go back to menu that called it
+        DestroyState(menuStateMachine);
     }
 
 }
