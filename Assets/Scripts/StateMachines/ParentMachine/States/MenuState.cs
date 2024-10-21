@@ -15,7 +15,8 @@ public class MenuState : BaseState
 
     public override void EnterState(GameStateMachine gameStateMachine)
     {
-        if(menuStateMachine == null){
+        if (menuStateMachine == null)
+        {
             menuStateMachine = new MenuStateMachine(gameStateMachine.SceneHandler);
         }
         menuStateMachine.Initialize();
@@ -26,4 +27,6 @@ public class MenuState : BaseState
     {
         menuStateMachine.UpdateState();
     }
+
+
 }

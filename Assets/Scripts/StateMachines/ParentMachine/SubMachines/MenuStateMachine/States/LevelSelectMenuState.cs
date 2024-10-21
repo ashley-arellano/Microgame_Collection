@@ -10,7 +10,7 @@ public class LevelSelectMenuState : BaseMenuState
 
     public override void EnterState(MenuStateMachine menuStateMachine) {
         // Load the scene and setup once it’s ready, passing the menuStateMachine using a lambda
-        menuStateMachine.SceneHandler.OnLoadScene("LevelSelectuUI", () => SetUpState(menuStateMachine));
+        menuStateMachine.SceneHandler.OnLoadScene("LevelSelectUI", () => SetUpState(menuStateMachine));
     }
 
 
@@ -48,36 +48,21 @@ public class LevelSelectMenuState : BaseMenuState
                 levelSelectButtons[temp].onClick.AddListener(() => LevelSelect(tempCopy,menuStateMachine));
             }
         }
-        levelSelectButtons["Options"].onClick.AddListener(() => OptionSSelected(menuStateMachine));
+        //add whenever i actually add it to ui*
+        //levelSelectButtons["Options"].onClick.AddListener(() => OptionSSelected(menuStateMachine));
     }
 
     private void LevelSelect(string levelNumber, MenuStateMachine menuStateMachine){
-        //need to add 
-        //not sure if remove listners are needed since they will be moving to next scene
-        switch(levelNumber){
-            case "1":
-                Debug.Log("Level 1");
-                //gameStateMachine.SwitchState(gameStateMachine.States.LevelOneState);
-                break;
-            case "2":
-                Debug.Log("Level 2");
-               // gameStateMachine.SwitchState(gameStateMachine.States.LevelTwoState);
-                break;
-            case "3":
-                Debug.Log("Lvel 3");
-                break;
-            default:
-                Debug.Log("not valid");
-                break;
-        }
-        //now how do we transition to playstatemachine? or just playstate in general in main
-        //parent fsm???????????????
+        int level = int.Parse(levelNumber);
+        Debug.Log("Level: "+level);
     }
+
 
     private void OptionSSelected(MenuStateMachine menuStateMachine){
         //switch state to options
         menuStateMachine.SwitchState(menuStateMachine.MenuStates.OptionsMenuState);
     }
+}
 
     // //Scene should be LevelSelectState
     // private bool canSetUp = false;
@@ -141,4 +126,4 @@ public class LevelSelectMenuState : BaseMenuState
 
     // }
     
-}
+//}

@@ -1,6 +1,7 @@
-
+using System;
 public class MenuStateMachine 
 {
+
     public MenuStates MenuStates{
         get{ return menuStates; }
     }
@@ -14,6 +15,8 @@ public class MenuStateMachine
     public MenuStateMachine (SceneHandler sceneHandler){
         this.sceneHandler = sceneHandler;
     }
+    
+   
      // Start is called before the first frame update
     public void Initialize()
     {
