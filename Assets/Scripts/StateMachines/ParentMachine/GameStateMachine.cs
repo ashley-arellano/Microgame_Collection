@@ -14,14 +14,16 @@ public class GameStateMachine : MonoBehaviour
     [SerializeField]
     private SceneHandler sceneHandler;
     private BaseState currentState;
-   
+    public GameSelectionMediator GameSelectionMediator{
+        get{return gameSelectionMediator;}
+    }
+   private GameSelectionMediator gameSelectionMediator;
+    public States States{
+        get{return states;}
+    }
     //Reference to all states
     private States states;
-    public int CurrentLevelNumber{
-        get{return currentLevelNumber;}
-        set{currentLevelNumber = value;}
-    }
-    private int currentLevelNumber;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -29,9 +31,10 @@ public class GameStateMachine : MonoBehaviour
         //temp for now; going to add scene handler which will have a thing
         //that subcribes to when a new scene is loaded and done being loaded
         //and this will be the function that is called for it***
-        currentLevelNumber = -1;
-        //uIMenuElements = GameObject.FindWithTag("ButtonPanel").GetComponent<UIMenuElements>();
-        states = new States();
+        
+        
+        gameSelectionMediator = new GameSelectionMediator();
+        states = new States(); 
         //starting state for game state machine
         currentState = states.MenuState;
         //"this" is a reference to the context (this exact script)

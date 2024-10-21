@@ -6,18 +6,19 @@ public class MyPlayState : BaseState
 {
     public override void DestroyState(GameStateMachine gameStateMachine)
     {
-        throw new System.NotImplementedException();
+        gameStateMachine.SceneHandler.OnUnloadScene("GameSystem");
     }
 
     public override void EnterState(GameStateMachine gameStateMachine)
     {
-        throw new System.NotImplementedException();
+         // Load the scene and setup once it’s ready, passing the menuStateMachine using a lambda
+        gameStateMachine.SceneHandler.OnLoadScene("GameSystem");
     }
 
    
 
     public override void UpdateState(GameStateMachine gameStateMachine)
     {
-        throw new System.NotImplementedException();
+        
     }
 }

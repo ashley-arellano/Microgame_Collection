@@ -6,27 +6,44 @@ using System;
 
 public class MenuState : BaseState
 {
+    
     private MenuStateMachine menuStateMachine;
+
+    private bool enterPlayState = false;
     public override void DestroyState(GameStateMachine gameStateMachine)
     {
+        //should i do ????????????
+        //menuStateMachine = null; 
+       gameStateMachine.GameSelectionMediator.OnGameSelectionChanged -= OnGameSelected;
        menuStateMachine.ExitState();
-       menuStateMachine = null;
     }
 
     public override void EnterState(GameStateMachine gameStateMachine)
     {
         if (menuStateMachine == null)
         {
-            menuStateMachine = new MenuStateMachine(gameStateMachine.SceneHandler);
+            Debug.Log("Initalize MenuStateMachine");
+            menuStateMachine = new MenuStateMachine(gameStateMachine.SceneHandler, gameStateMachine.GameSelectionMediator);
+            menuStateMachine.Initialize();
         }
-        menuStateMachine.Initialize();
+        gameStateMachine.GameSelectionMediator.OnGameSelectionChanged += OnGameSelected;
+        
     }
 
 
     public override void UpdateState(GameStateMachine gameStateMachine)
     {
-        menuStateMachine.UpdateState();
+        
+        if(enterPlayState){
+            enterPlayState = false;
+            gameStateMachine.SwitchState(gameStateMachine.States.MyPlayState);
+        }
     }
 
+    private void OnGameSelected(string selectedGameID)
+    {
+        enterPlayState = true;
+    }
+    
 
 }

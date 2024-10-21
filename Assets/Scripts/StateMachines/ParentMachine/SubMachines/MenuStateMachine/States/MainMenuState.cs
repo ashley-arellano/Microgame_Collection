@@ -12,11 +12,6 @@ public class MainMenuState : BaseMenuState
         menuStateMachine.SceneHandler.OnLoadScene("MainMenuUI", () => SetUpState(menuStateMachine));
     }
 
-
-    public override void UpdateState(MenuStateMachine menuStateMachine) {
-        // Empty or just polling-based actions if needed
-    }
-
     public override void DestroyState(MenuStateMachine menuStateMachine) {
         // Unload the scene when leaving the state
         menuStateMachine.SceneHandler.OnUnloadScene("MainMenuUI");
@@ -48,8 +43,8 @@ public class MainMenuState : BaseMenuState
 
     private void StartGame(MenuStateMachine menuStateMachine) {
         // Transition to the next state
-        Debug.Log("Moving to LevelSelectUI");
-        menuStateMachine.SwitchState(menuStateMachine.MenuStates.LevelSelectMenuState);
+        Debug.Log("Moving to ModeSelectUI");
+        menuStateMachine.SwitchState(menuStateMachine.MenuStates.ModeSelectMenuState);
     }
 
 
