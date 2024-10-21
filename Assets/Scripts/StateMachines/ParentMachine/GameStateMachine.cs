@@ -7,20 +7,25 @@ using UnityEngine;
 //only script to add to ui state
 public class GameStateMachine : MonoBehaviour
 {
+    //
+    // public MenuStateMachine MenuStateMachine { 
+    //     get{ return menuStateMachine; } 
+    // }
+    
+    // [SerializeField]
+    // private MenuStateMachine menuStateMachine;
+    
     public SceneHandler SceneHandler{ 
         get{return sceneHandler;}  
     }
     [SerializeField]
     private SceneHandler sceneHandler;
     private BaseState currentState;
-    public UIMenuElements UIMenuElements{
-        get {return uIMenuElements;} set{uIMenuElements = value;}
-    }
+    // public UIMenuElements UIMenuElements{
+    //     get {return uIMenuElements;} set{uIMenuElements = value;}
+    // }
     
     private UIMenuElements uIMenuElements;
-    public States States {
-        get {return states;} 
-    }
     //Reference to all states
     private States states;
 

@@ -1,22 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-public class MenuStateMachine : MonoBehaviour
+public class MenuStateMachine 
 {
+    public MenuStates MenuStates{
+        get{ return menuStates; }
+    }
     //Reference to all states
-    private MenuStates states;
+    private MenuStates menuStates;
     private BaseMenuState currentState;
+    private SceneHandler sceneHandler;
+    public SceneHandler SceneHandler{ 
+        get{return sceneHandler;}  
+    }
+    public MenuStateMachine (SceneHandler sceneHandler){
+        this.sceneHandler = sceneHandler;
+    }
      // Start is called before the first frame update
-    void Start()
+    public void Initialize()
     {
-        states = new MenuStates();
+        menuStates = new MenuStates();
         //starting state for game state machine
-        currentState = states.MainMenuState;
+        currentState = menuStates.MainMenuState;
         //"this" is a reference to the context (this exact script)
         currentState.EnterState(this);
     }
-    void Update()
+    public void UpdateState()
     {
         if(currentState != null){
             currentState.UpdateState(this);
@@ -31,5 +38,10 @@ public class MenuStateMachine : MonoBehaviour
         }
         currentState = state;
         currentState.EnterState(this);
+    }
+
+    //not sure if needed but for now
+    public void ExitState(){
+        currentState.DestroyState(this);
     }
 }

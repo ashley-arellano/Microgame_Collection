@@ -8,5 +8,5 @@ public abstract class BaseMenuState
    public abstract void UpdateState(MenuStateMachine menuStateMachine);
    public abstract void DestroyState(MenuStateMachine menuStateMachine);
    public abstract void SetUpState(MenuStateMachine menuStateMachine);
-   public abstract void SetUpWrapper();
+   //public abstract void SetUpWrapper();
 }

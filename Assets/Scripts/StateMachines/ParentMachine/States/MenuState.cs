@@ -6,20 +6,23 @@ using System;
 
 public class MenuState : BaseState
 {
-    private GameObject mainStateMachine;
+    private MenuStateMachine menuStateMachine;
     public override void DestroyState(GameStateMachine gameStateMachine)
     {
-        throw new NotImplementedException();
+       menuStateMachine.ExitState();
     }
 
     public override void EnterState(GameStateMachine gameStateMachine)
     {
-        
+        if(menuStateMachine == null){
+            menuStateMachine = new MenuStateMachine(gameStateMachine.SceneHandler);
+        }
+        menuStateMachine.Initialize();
     }
 
 
     public override void UpdateState(GameStateMachine gameStateMachine)
     {
-        throw new NotImplementedException();
+        menuStateMachine.UpdateState();
     }
 }

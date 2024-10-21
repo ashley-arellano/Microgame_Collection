@@ -7,30 +7,51 @@ using System;
 public class MainMenuState : BaseMenuState
 {
     
-    public override void DestroyState(MenuStateMachine menuStateMachine)
-    {
-        throw new NotImplementedException();
+    private Dictionary<string, Button> mainMenuButtons = new Dictionary<string, Button>();
+
+    public override void EnterState(MenuStateMachine menuStateMachine) {
+        // Load the scene and setup once it’s ready, passing the menuStateMachine using a lambda
+        menuStateMachine.SceneHandler.OnLoadScene("MainMenuUI", () => SetUpState(menuStateMachine));
     }
 
-    public override void EnterState(MenuStateMachine menuStateMachine)
-    {
-        throw new NotImplementedException();
+
+    public override void UpdateState(MenuStateMachine menuStateMachine) {
+        // Empty or just polling-based actions if needed
     }
 
-    public override void SetUpState(MenuStateMachine menuStateMachine)
-    {
-        throw new NotImplementedException();
+    public override void DestroyState(MenuStateMachine menuStateMachine) {
+        // Unload the scene when leaving the state
+        menuStateMachine.SceneHandler.OnUnloadScene("MainMenuUI");
     }
 
-    public override void SetUpWrapper()
-    {
-        throw new NotImplementedException();
+    public override void SetUpState(MenuStateMachine menuStateMachine) {
+        //we need another way to grab the buttons
+        //maybe
+        var uIMenuElements = GameObject.FindWithTag("ButtonPanel")?.GetComponent<UIMenuElements>();
+
+        if (uIMenuElements == null) {
+            Debug.LogError("Button panel not found!");
+            return;
+        }
+
+        mainMenuButtons = uIMenuElements.ButtonPrefabDic;
+        InitializeButtons(menuStateMachine);
     }
 
-    public override void UpdateState(MenuStateMachine menuStateMachine)
-    {
-        throw new NotImplementedException();
+    private void InitializeButtons(MenuStateMachine menuStateMachine) {
+        mainMenuButtons["quitButton"].onClick.AddListener(ExitGame);
+        mainMenuButtons["playButton"].onClick.AddListener(() => StartGame(menuStateMachine));
     }
+
+    private void ExitGame() {
+        Application.Quit();
+    }
+
+    private void StartGame(MenuStateMachine menuStateMachine) {
+        // Transition to the next state
+        menuStateMachine.SwitchState(menuStateMachine.MenuStates.LevelSelectMenuState);
+    }
+
 
     /*private Dictionary<string, Button> mainMenuButtons = new Dictionary<string, Button>();
     private bool startGame = false;

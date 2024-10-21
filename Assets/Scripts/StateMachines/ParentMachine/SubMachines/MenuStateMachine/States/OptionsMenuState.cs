@@ -19,10 +19,6 @@ public class OptionsMenuState : BaseMenuState
         throw new System.NotImplementedException();
     }
 
-    public override void SetUpWrapper()
-    {
-        throw new System.NotImplementedException();
-    }
 
     public override void UpdateState(MenuStateMachine menuStateMachine)
     {
