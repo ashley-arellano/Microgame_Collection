@@ -7,8 +7,6 @@ using UnityEngine;
 //only script to add to ui state
 public class GameStateMachine : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject stateMachine;
     public SceneHandler SceneHandler{ 
         get{return sceneHandler;}  
     }
@@ -36,7 +34,7 @@ public class GameStateMachine : MonoBehaviour
         //uIMenuElements = GameObject.FindWithTag("ButtonPanel").GetComponent<UIMenuElements>();
         states = new States();
         //starting state for game state machine
-        currentState = states.MainMenuState;
+        currentState = states.MenuState;
         //"this" is a reference to the context (this exact script)
         currentState.EnterState(this);
     }

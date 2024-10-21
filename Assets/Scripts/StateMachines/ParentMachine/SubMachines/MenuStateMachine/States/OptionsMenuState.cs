@@ -2,19 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelTwoState : BaseState
+public class OptionsMenuState : BaseMenuState
 {
-    public override void DestroyState(GameStateMachine gameStateMachine)
+    public override void DestroyState(MenuStateMachine menuStateMachine)
     {
         throw new System.NotImplementedException();
     }
 
-    public override void EnterState(GameStateMachine gameStateMachine)
+    public override void EnterState(MenuStateMachine menuStateMachine)
     {
         throw new System.NotImplementedException();
     }
 
-    public override void SetUpState(GameStateMachine gameStateMachine)
+    public override void SetUpState(MenuStateMachine menuStateMachine)
     {
         throw new System.NotImplementedException();
     }
@@ -24,7 +24,7 @@ public class LevelTwoState : BaseState
         throw new System.NotImplementedException();
     }
 
-    public override void UpdateState(GameStateMachine gameStateMachine)
+    public override void UpdateState(MenuStateMachine menuStateMachine)
     {
         throw new System.NotImplementedException();
     }

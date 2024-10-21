@@ -4,11 +4,35 @@ using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System;
 
-//concrete state of fsm
-//Scene should be MainMenuMode
-public class MainMenuState : BaseState 
+public class MainMenuState : BaseMenuState
 {
-    private Dictionary<string, Button> mainMenuButtons = new Dictionary<string, Button>();
+    
+    public override void DestroyState(MenuStateMachine menuStateMachine)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void EnterState(MenuStateMachine menuStateMachine)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void SetUpState(MenuStateMachine menuStateMachine)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void SetUpWrapper()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void UpdateState(MenuStateMachine menuStateMachine)
+    {
+        throw new NotImplementedException();
+    }
+
+    /*private Dictionary<string, Button> mainMenuButtons = new Dictionary<string, Button>();
     private bool startGame = false;
     private bool exitGame = false;
     private bool canSetUp = false;
@@ -25,7 +49,7 @@ public class MainMenuState : BaseState
         }
         //need to add //remove all listeners code
         if(startGame){
-            gameStateMachine.SwitchState(gameStateMachine.States.LevelSelectState);
+           // gameStateMachine.SwitchState(gameStateMachine.States.LevelSelectState);
         }
 
         if(exitGame){
@@ -54,7 +78,5 @@ public class MainMenuState : BaseState
            mainMenuButtons["quitButton"].onClick.AddListener(() => exitGame = true);
            mainMenuButtons["playButton"].onClick.AddListener(() => startGame = true);
         }
-    }
-
-
+    }*/
 }
