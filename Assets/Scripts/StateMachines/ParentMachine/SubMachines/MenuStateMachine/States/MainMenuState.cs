@@ -1,8 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using System.Collections.Generic;
-using System;
 
 public class MainMenuState : BaseMenuState
 {
@@ -44,11 +42,13 @@ public class MainMenuState : BaseMenuState
     }
 
     private void ExitGame() {
+        Debug.Log("Quit");
         Application.Quit();
     }
 
     private void StartGame(MenuStateMachine menuStateMachine) {
         // Transition to the next state
+        Debug.Log("Moving to LevelSelectUI");
         menuStateMachine.SwitchState(menuStateMachine.MenuStates.LevelSelectMenuState);
     }
 

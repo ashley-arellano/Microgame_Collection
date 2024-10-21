@@ -10,6 +10,7 @@ public class MenuState : BaseState
     public override void DestroyState(GameStateMachine gameStateMachine)
     {
        menuStateMachine.ExitState();
+       menuStateMachine = null;
     }
 
     public override void EnterState(GameStateMachine gameStateMachine)

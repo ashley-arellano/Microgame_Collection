@@ -14,7 +14,7 @@ public class GameStateMachine : MonoBehaviour
     
     // [SerializeField]
     // private MenuStateMachine menuStateMachine;
-    
+
     public SceneHandler SceneHandler{ 
         get{return sceneHandler;}  
     }
@@ -25,7 +25,7 @@ public class GameStateMachine : MonoBehaviour
     //     get {return uIMenuElements;} set{uIMenuElements = value;}
     // }
     
-    private UIMenuElements uIMenuElements;
+    //private UIMenuElements uIMenuElements;
     //Reference to all states
     private States states;
 

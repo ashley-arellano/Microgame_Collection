@@ -48,6 +48,7 @@ public class LevelSelectMenuState : BaseMenuState
                 levelSelectButtons[temp].onClick.AddListener(() => LevelSelect(tempCopy,menuStateMachine));
             }
         }
+        levelSelectButtons["Options"].onClick.AddListener(() => OptionSSelected(menuStateMachine));
     }
 
     private void LevelSelect(string levelNumber, MenuStateMachine menuStateMachine){
@@ -69,6 +70,13 @@ public class LevelSelectMenuState : BaseMenuState
                 Debug.Log("not valid");
                 break;
         }
+        //now how do we transition to playstatemachine? or just playstate in general in main
+        //parent fsm???????????????
+    }
+
+    private void OptionSSelected(MenuStateMachine menuStateMachine){
+        //switch state to options
+        menuStateMachine.SwitchState(menuStateMachine.MenuStates.OptionsMenuState);
     }
 
     // //Scene should be LevelSelectState
