@@ -25,6 +25,19 @@ public class MenuState : BaseState
             Debug.Log("Initalize MenuStateMachine");
             menuStateMachine = new MenuStateMachine(gameStateMachine.SceneHandler, gameStateMachine.GameSelectionMediator);
             menuStateMachine.Initialize();
+        }else{
+            //three ways to enter menu state 
+                //from the start
+                //after exiting play state
+                    //player would be placed in levelselect or minigame select
+                //after exiting pause state
+                    //player would be placed in levelselect or minigame select
+                    //meaning the last state would need to be recorded :(
+                    //possible solution is by making an observer pattern 
+                    //and replace my laststate variable in options too if i do this
+                    //or i could just add a laststate variable in menustate for now
+                    //and depending how the statemachine grows
+                    //i could consider the observer pattern
         }
         gameStateMachine.GameSelectionMediator.OnGameSelectionChanged += OnGameSelected;
         
