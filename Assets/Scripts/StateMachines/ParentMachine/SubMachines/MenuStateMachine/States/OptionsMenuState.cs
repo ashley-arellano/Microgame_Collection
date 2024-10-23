@@ -7,6 +7,8 @@ public class OptionsMenuState : BaseState
     private Dictionary<string, Button> mainMenuButtons = new Dictionary<string, Button>();
 
     public override void EnterState(GameStateMachine gameStateMachine) {
+         gameStateMachine.GameStateContext.States.CurrentSubState = 
+                gameStateMachine.GameStateContext.States.StatesDict["OptionsMenuState"];
         // Load the scene and setup once it’s ready, passing the gameStateMachine using a lambda
         gameStateMachine.SceneHandler.OnLoadScene("OptionsMenuUI", () => SetUpState(gameStateMachine));
     }
@@ -53,11 +55,7 @@ public class OptionsMenuState : BaseState
         if (lastStateType == typeof(ModeSelectMenuState))
         {
             // Handle ModeSelectMenuState
-            gameStateMachine.GameStateContext.States.CurrentSubState = 
-                gameStateMachine.GameStateContext.States.LastState; 
-
-           
-            gameStateMachine.SwitchState(gameStateMachine.GameStateContext.States.CurrentSubState);
+            gameStateMachine.SwitchState(gameStateMachine.GameStateContext.States.LastState);
         }
         else
         {

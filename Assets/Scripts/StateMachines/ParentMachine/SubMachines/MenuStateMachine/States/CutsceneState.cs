@@ -9,6 +9,8 @@ public class CutsceneState : BaseState
 
     public override void EnterState(GameStateMachine gameStateMachine)
     {
+        gameStateMachine.GameStateContext.States.CurrentSubState =
+                 gameStateMachine.GameStateContext.States.StatesDict["CutsceneState"]; 
         // Load the scene
         MoveToGame(gameStateMachine);
 
@@ -16,9 +18,7 @@ public class CutsceneState : BaseState
 
     //for now, for testing
     private void MoveToGame(GameStateMachine gameStateMachine){
-        gameStateMachine.GameStateContext.States.CurrentSubState = 
-            gameStateMachine.GameStateContext.States.StatesDict["PlayMinigamesState"];
-
+       
         gameStateMachine.SwitchState(gameStateMachine.GameStateContext.States.CurrentSubState);
     }
 

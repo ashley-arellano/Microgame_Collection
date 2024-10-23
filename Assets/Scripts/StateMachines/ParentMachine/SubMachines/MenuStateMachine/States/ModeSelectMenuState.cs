@@ -16,6 +16,8 @@ public class ModeSelectMenuState : BaseState
 
     public override void EnterState(GameStateMachine gameStateMachine)
     {
+        gameStateMachine.GameStateContext.States.CurrentSubState = 
+            gameStateMachine.GameStateContext.States.StatesDict["ModeSelectMenuState"];
         // Load the scene and setup once it’s ready, passing the gameStateMachine using a lambda
         gameStateMachine.SceneHandler.OnLoadScene("ModeSelectUI", () => SetUpState(gameStateMachine));
     }
@@ -41,16 +43,14 @@ public class ModeSelectMenuState : BaseState
 
     private void StoryModeSelected(GameStateMachine gameStateMachine){
 
-         gameStateMachine.GameStateContext.States.CurrentSubState = 
-                gameStateMachine.GameStateContext.States.StatesDict["LevelSelectMenuState"];
+         
 
         gameStateMachine.SwitchState(
             gameStateMachine.GameStateContext.States.CurrentSubState);
     }
     private void OptionsSelected(GameStateMachine gameStateMachine){
 
-        gameStateMachine.GameStateContext.States.CurrentSubState = 
-                gameStateMachine.GameStateContext.States.StatesDict["OptionsMenuState"];
+       
 
         gameStateMachine.SwitchState(gameStateMachine.GameStateContext.States.CurrentSubState);
         

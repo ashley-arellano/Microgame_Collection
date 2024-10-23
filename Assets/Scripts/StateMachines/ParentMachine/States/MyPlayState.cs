@@ -15,21 +15,21 @@ public class MyPlayState : BaseState
 
     public override void EnterState(GameStateMachine gameStateMachine)
     {
-        //  gameStateMachine.GameStateContext.States.CurrentSuperState = 
-        //         gameStateMachine.GameStateContext.States.StatesDict["MyPlayState"];
+        gameStateMachine.GameStateContext.States.CurrentSuperState =
+                 gameStateMachine.GameStateContext.States.StatesDict["MyPlayState"];
 
-        if(gameStateMachine.GameStateContext.States.CurrentSubState.GetType() == typeof(CutsceneState) )
+        if(gameStateMachine.GameStateContext.States.LastState.GetType() == typeof(LevelSelectMenuState) )
         {
              // Load the scene and setup once it’s ready, passing the menuStateMachine using a lambda
              Debug.Log("Insert Cutscene: Not Done yet");
 
             //Go into cutscene state
-            gameStateMachine.GameStateContext.States.CurrentSubState = 
-                gameStateMachine.GameStateContext.States.StatesDict["CutsceneState"];
-
-            gameStateMachine.GameStateContext.States.CurrentSubState.EnterState(gameStateMachine);
+             gameStateMachine.GameStateContext.States.StatesDict["CutsceneState"].EnterState(gameStateMachine);
 
         }
+        //else if freeplay logic
+
+
         //else if typeof(PlayMinigamesState), load that state
         
     }

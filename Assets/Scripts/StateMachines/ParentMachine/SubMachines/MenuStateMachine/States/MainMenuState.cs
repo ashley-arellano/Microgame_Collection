@@ -8,6 +8,8 @@ public class MainMenuState : BaseState
     private Dictionary<string, Button> mainMenuButtons = new Dictionary<string, Button>();
 
     public override void EnterState(GameStateMachine gameStateMachine) {
+        gameStateMachine.GameStateContext.States.CurrentSubState = 
+                gameStateMachine.GameStateContext.States.StatesDict["MainMenuState"];
         // Load the scene and setup once it’s ready, passing the gameStateMachine using a lambda
         gameStateMachine.SceneHandler.OnLoadScene("MainMenuUI", () => SetUpState(gameStateMachine));
     }
@@ -47,8 +49,7 @@ public class MainMenuState : BaseState
     private void StartGame(GameStateMachine gameStateMachine) {
         // Transition to the next state
         Debug.Log("Moving to ModeSelectUI");
-        gameStateMachine.GameStateContext.States.CurrentSubState = 
-            gameStateMachine.GameStateContext.States.StatesDict["ModeSelectMenuState"];
+        
 
         gameStateMachine.SwitchState(gameStateMachine.GameStateContext.States.CurrentSubState);
     }

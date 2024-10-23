@@ -40,6 +40,7 @@ public class GameStateMachine : MonoBehaviour
         currentState = gameStateContext.States.StatesDict["MenuState"];
         gameStateContext.States.CurrentSuperState = currentState;
         gameStateContext.States.CurrentSubState = null;
+        gameStateContext.States.LastState = null;
 
         //"this" is a reference to the context (this exact script)
         currentState.EnterState(this);
@@ -53,7 +54,7 @@ public class GameStateMachine : MonoBehaviour
     //     }
         
     // }
-    
+
     //transition through states
     public void SwitchState(BaseState state){
         // If we currently have state, then destroy it

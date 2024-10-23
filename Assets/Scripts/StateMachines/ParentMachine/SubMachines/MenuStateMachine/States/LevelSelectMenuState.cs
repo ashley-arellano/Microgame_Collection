@@ -10,6 +10,8 @@ public class LevelSelectMenuState : BaseState
     private Dictionary<string, Button> levelSelectButtons = new Dictionary<string, Button>();
 
     public override void EnterState(GameStateMachine gameStateMachine) {
+        gameStateMachine.GameStateContext.States.CurrentSubState = 
+                gameStateMachine.GameStateContext.States.StatesDict["LevelSelectMenuState"];
         // Load the scene and setup once it’s ready, passing the gameStateMachine using a lambda
         gameStateMachine.SceneHandler.OnLoadScene("LevelSelectUI", () => SetUpState(gameStateMachine));
     }
@@ -50,16 +52,12 @@ public class LevelSelectMenuState : BaseState
         // Save levelNumber
         gameStateMachine.GameStateContext.GameSelectionMediator.SelectedLevelID = levelNumber;
 
-        //Switching states
-        gameStateMachine.GameStateContext.States.CurrentSuperState = 
-            gameStateMachine.GameStateContext.States.StatesDict["PlayState"];
-
-        gameStateMachine.GameStateContext.States.CurrentSubState = 
-            gameStateMachine.GameStateContext.States.StatesDict["CutsceneState"];
+        gameStateMachine.GameStateContext.States.CurrentSubState = null;
+          //  gameStateMachine.GameStateContext.States.StatesDict["CutsceneState"];
 
         //or do i have it go back to menu then to play??????????
         gameStateMachine.SwitchState(
-            gameStateMachine.GameStateContext.States.StatesDict["MenuState"]);//or should i switch to parent first?
+            gameStateMachine.GameStateContext.States.StatesDict["PlayState"]);//or should i switch to parent first?
     }
 }
 
