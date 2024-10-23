@@ -2,26 +2,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class OptionsMenuState : BaseMenuState
+public class OptionsMenuState : BaseState 
 {
-    //Getting the last state before options
-    public string LastStateBeforeOptions{
-        set{ lastStateBeforeOptions = value; }
-    }
-    private string lastStateBeforeOptions;
     private Dictionary<string, Button> mainMenuButtons = new Dictionary<string, Button>();
 
-    public override void EnterState(MenuStateMachine menuStateMachine) {
-        // Load the scene and setup once it’s ready, passing the menuStateMachine using a lambda
-        menuStateMachine.SceneHandler.OnLoadScene("OptionsMenuUI", () => SetUpState(menuStateMachine));
+    public override void EnterState(GameStateMachine gameStateMachine) {
+        // Load the scene and setup once it’s ready, passing the gameStateMachine using a lambda
+        gameStateMachine.SceneHandler.OnLoadScene("OptionsMenuUI", () => SetUpState(gameStateMachine));
     }
 
-    public override void DestroyState(MenuStateMachine menuStateMachine) {
+    public override void DestroyState(GameStateMachine gameStateMachine) {
+         gameStateMachine.GameStateContext.States.LastState =
+                 gameStateMachine.GameStateContext.States.StatesDict["OptionsMenuState"];   
         // Unload the scene when leaving the state
-        menuStateMachine.SceneHandler.OnUnloadScene("OptionsMenuUI");
+        gameStateMachine.SceneHandler.OnUnloadScene("OptionsMenuUI");
     }
 
-    public override void SetUpState(MenuStateMachine menuStateMachine) {
+    public void SetUpState(GameStateMachine gameStateMachine) {
         //we need another way to grab the buttons
         //maybe
         var uIMenuElements = GameObject.FindWithTag("ButtonPanel")?.GetComponent<UIMenuElements>();
@@ -32,12 +29,12 @@ public class OptionsMenuState : BaseMenuState
         }
 
         mainMenuButtons = uIMenuElements.ButtonPrefabDic;
-        InitializeButtons(menuStateMachine);
+        InitializeButtons(gameStateMachine);
     }
 
-    private void InitializeButtons(MenuStateMachine menuStateMachine) {
+    private void InitializeButtons(GameStateMachine gameStateMachine) {
         mainMenuButtons["Apply"].onClick.AddListener(ApplySettings);
-        mainMenuButtons["Back"].onClick.AddListener(() => GoBackToLastState(menuStateMachine));
+        mainMenuButtons["Back"].onClick.AddListener(() => GoBackToLastState(gameStateMachine));
     }
 
     private void ApplySettings(){
@@ -48,20 +45,26 @@ public class OptionsMenuState : BaseMenuState
 
     //has to be fixed
 
-    private void GoBackToLastState(MenuStateMachine menuStateMachine){
+    private void GoBackToLastState(GameStateMachine gameStateMachine){
 
-        switch(lastStateBeforeOptions){
-            case "ModeSelect":
-                menuStateMachine.SwitchState(menuStateMachine.MenuStates.ModeSelectMenuState);
-                break;
-            case "PauseMenu":
-                //menuStateMachine.SwitchState(menuStateMachine.MenuStates.PauseMenuState);
-                Debug.Log("TBA: PauseMenu last state");
-                break;
-            default:
-                break;
+
+        var lastStateType = gameStateMachine.GameStateContext.States.LastState.GetType();
+
+        if (lastStateType == typeof(ModeSelectMenuState))
+        {
+            // Handle ModeSelectMenuState
+            gameStateMachine.GameStateContext.States.CurrentSubState = 
+                gameStateMachine.GameStateContext.States.LastState; 
+
+           
+            gameStateMachine.SwitchState(gameStateMachine.GameStateContext.States.CurrentSubState);
         }
-        DestroyState(menuStateMachine);
-    }
+        else
+        {
+            // Handle other cases (default)
+            Debug.Log("Not implemented: In OptionsMenuState");
+        }
 
+    }
+    
 }

@@ -14,8 +14,5 @@ public class LevelOneState : BaseState
     {
         
     }
-    public override void UpdateState(GameStateMachine gameStateMachine)
-    {
-        
-    }
+  
 }

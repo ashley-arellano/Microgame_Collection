@@ -1,8 +1,8 @@
 
-public abstract class BaseMenuState 
-{
-   public abstract void EnterState(MenuStateMachine menuStateMachine);
-   public abstract void DestroyState(MenuStateMachine menuStateMachine);
-   public abstract void SetUpState(MenuStateMachine menuStateMachine);
-   //public abstract void SetUpWrapper();
-}
+// public abstract class BaseMenuState 
+// {
+//    public abstract void EnterState(GameStateMachine gameStateMachine);
+//    public abstract void DestroyState(GameStateMachine gameStateMachine);
+//    public abstract void SetUpState(GameStateMachine gameStateMachine);
+//    //public abstract void SetUpWrapper();
+// }

@@ -14,15 +14,15 @@ public class GameStateMachine : MonoBehaviour
     [SerializeField]
     private SceneHandler sceneHandler;
     private BaseState currentState;
-    public GameSelectionMediator GameSelectionMediator{
-        get{return gameSelectionMediator;}
-    }
-   private GameSelectionMediator gameSelectionMediator;
-    public States States{
-        get{return states;}
+    // public GameSelectionMediator GameSelectionMediator{
+    //     get{return gameSelectionMediator;}
+    // }
+   //private GameSelectionMediator gameSelectionMediator;
+    public GameStateContext GameStateContext{
+        get{return gameStateContext;}
     }
     //Reference to all states
-    private States states;
+    private GameStateContext gameStateContext;
     
 
     // Start is called before the first frame update
@@ -33,22 +33,27 @@ public class GameStateMachine : MonoBehaviour
         //and this will be the function that is called for it***
         
         
-        gameSelectionMediator = new GameSelectionMediator();
-        states = new States(); 
+        //gameSelectionMediator = new GameSelectionMediator();
+        gameStateContext = new GameStateContext();
+
         //starting state for game state machine
-        currentState = states.MenuState;
+        currentState = gameStateContext.States.StatesDict["MenuState"];
+        gameStateContext.States.CurrentSuperState = currentState;
+        gameStateContext.States.CurrentSubState = null;
+
         //"this" is a reference to the context (this exact script)
         currentState.EnterState(this);
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if(currentState != null){
-            currentState.UpdateState(this);
-        }
+    // void Update()
+    // {
+    //     if(currentState != null){
+    //        currentState.UpdateState(this);
+    //     }
         
-    }
+    // }
+    
     //transition through states
     public void SwitchState(BaseState state){
         // If we currently have state, then destroy it

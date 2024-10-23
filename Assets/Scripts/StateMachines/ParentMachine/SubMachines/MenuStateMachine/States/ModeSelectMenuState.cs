@@ -3,22 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ModeSelectMenuState : BaseMenuState
+public class ModeSelectMenuState : BaseState 
 {
     private Dictionary<string, Button> modeSelectButtons = new Dictionary<string, Button>();
-    public override void DestroyState(MenuStateMachine menuStateMachine)
+    public override void DestroyState(GameStateMachine gameStateMachine)
     {
         // Unload the scene when leaving the state
-        menuStateMachine.SceneHandler.OnUnloadScene("ModeSelectUI");
+        gameStateMachine.GameStateContext.States.LastState =
+                 gameStateMachine.GameStateContext.States.StatesDict["ModeSelectMenuState"]; 
+        gameStateMachine.SceneHandler.OnUnloadScene("ModeSelectUI");
     }
 
-    public override void EnterState(MenuStateMachine menuStateMachine)
+    public override void EnterState(GameStateMachine gameStateMachine)
     {
-        // Load the scene and setup once it’s ready, passing the menuStateMachine using a lambda
-        menuStateMachine.SceneHandler.OnLoadScene("ModeSelectUI", () => SetUpState(menuStateMachine));
+        // Load the scene and setup once it’s ready, passing the gameStateMachine using a lambda
+        gameStateMachine.SceneHandler.OnLoadScene("ModeSelectUI", () => SetUpState(gameStateMachine));
     }
 
-    public override void SetUpState(MenuStateMachine menuStateMachine)
+    public void SetUpState(GameStateMachine gameStateMachine)
     {
         
         var uIMenuElements = GameObject.FindWithTag("ButtonPanel")?.GetComponent<UIMenuElements>();
@@ -28,23 +30,32 @@ public class ModeSelectMenuState : BaseMenuState
         }
 
         modeSelectButtons = uIMenuElements.ButtonPrefabDic;
-        InitializeButtons(menuStateMachine);
+        InitializeButtons(gameStateMachine);
     }
 
-    private void InitializeButtons(MenuStateMachine menuStateMachine) {
-        modeSelectButtons["StoryMode"].onClick.AddListener(() => StoryModeSelected(menuStateMachine));
-        modeSelectButtons["Options"].onClick.AddListener(() => OptionsSelected(menuStateMachine));
-        modeSelectButtons["FreePlay"].onClick.AddListener(() => FreePlaySelected(menuStateMachine));
+    private void InitializeButtons(GameStateMachine gameStateMachine) {
+        modeSelectButtons["StoryMode"].onClick.AddListener(() => StoryModeSelected(gameStateMachine));
+        modeSelectButtons["Options"].onClick.AddListener(() => OptionsSelected(gameStateMachine));
+        modeSelectButtons["FreePlay"].onClick.AddListener(() => FreePlaySelected(gameStateMachine));
     }
 
-    private void StoryModeSelected(MenuStateMachine menuStateMachine){
-        menuStateMachine.SwitchState(menuStateMachine.MenuStates.LevelSelectMenuState);
+    private void StoryModeSelected(GameStateMachine gameStateMachine){
+
+         gameStateMachine.GameStateContext.States.CurrentSubState = 
+                gameStateMachine.GameStateContext.States.StatesDict["LevelSelectMenuState"];
+
+        gameStateMachine.SwitchState(
+            gameStateMachine.GameStateContext.States.CurrentSubState);
     }
-    private void OptionsSelected(MenuStateMachine menuStateMachine){
-        menuStateMachine.MenuStates.OptionsMenuState.LastStateBeforeOptions = "ModeSelect";
-        menuStateMachine.SwitchState(menuStateMachine.MenuStates.OptionsMenuState);
+    private void OptionsSelected(GameStateMachine gameStateMachine){
+
+        gameStateMachine.GameStateContext.States.CurrentSubState = 
+                gameStateMachine.GameStateContext.States.StatesDict["OptionsMenuState"];
+
+        gameStateMachine.SwitchState(gameStateMachine.GameStateContext.States.CurrentSubState);
+        
     }
-    private void FreePlaySelected(MenuStateMachine menuStateMachine){
+    private void FreePlaySelected(GameStateMachine gameStateMachine){
         Debug.Log("TBA: FreePlay");
     }
 }

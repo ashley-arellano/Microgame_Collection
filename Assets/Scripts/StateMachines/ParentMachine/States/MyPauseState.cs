@@ -6,18 +6,12 @@ public class MyPauseState : BaseState
 {
     public override void DestroyState(GameStateMachine gameStateMachine)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Pause Destory: TBA");
     }
 
     public override void EnterState(GameStateMachine gameStateMachine)
     {
-        throw new System.NotImplementedException();
+         Debug.Log("Pause Enter: TBA");
     }
 
-   
-
-    public override void UpdateState(GameStateMachine gameStateMachine)
-    {
-        throw new System.NotImplementedException();
-    }
 }

@@ -1,5 +1,5 @@
 
-public class MenuStates 
+public class MenuStates
 {
     public MainMenuState MainMenuState{
         get { return mainMenuState;}

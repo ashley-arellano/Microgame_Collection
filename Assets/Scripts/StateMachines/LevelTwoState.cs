@@ -14,8 +14,5 @@ public class LevelTwoState : BaseState
         throw new System.NotImplementedException();
     }
 
-    public override void UpdateState(GameStateMachine gameStateMachine)
-    {
-        throw new System.NotImplementedException();
-    }
+   
 }

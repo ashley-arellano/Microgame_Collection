@@ -3,60 +3,41 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System;
+using UnityEngine.Playables;
 
 public class MenuState : BaseState
 {
     
-    private MenuStateMachine menuStateMachine;
+   // private MenuStateMachine menuStateMachine;
 
-    private bool enterPlayState = false;
+    private bool onStart = true; 
     public override void DestroyState(GameStateMachine gameStateMachine)
     {
-        //should i do ????????????
-        //menuStateMachine = null; 
-       gameStateMachine.GameSelectionMediator.OnGameSelectionChanged -= OnGameSelected;
-       menuStateMachine.ExitState();
+        gameStateMachine.GameStateContext.States.LastState =
+                 gameStateMachine.GameStateContext.States.StatesDict["MenuState"]; 
     }
 
     public override void EnterState(GameStateMachine gameStateMachine)
     {
-        if (menuStateMachine == null)
-        {
-            Debug.Log("Initalize MenuStateMachine");
-            menuStateMachine = new MenuStateMachine(gameStateMachine.SceneHandler, gameStateMachine.GameSelectionMediator);
-            menuStateMachine.Initialize();
-        }else{
-            //three ways to enter menu state 
-                //from the start
-                //after exiting play state
-                    //player would be placed in levelselect or minigame select
-                //after exiting pause state
-                    //player would be placed in levelselect or minigame select
-                    //meaning the last state would need to be recorded :(
-                    //possible solution is by making an observer pattern 
-                    //and replace my laststate variable in options too if i do this
-                    //or i could just add a laststate variable in menustate for now
-                    //and depending how the statemachine grows
-                    //i could consider the observer pattern
+        //will write a conditon using context later
+        //When Game is first launched, go to main menu
+        if (onStart){
+            onStart = false;
+            gameStateMachine.GameStateContext.States.CurrentSubState = 
+                gameStateMachine.GameStateContext.States.StatesDict["MainMenuState"];
+
+            gameStateMachine.GameStateContext.States.CurrentSubState.EnterState(gameStateMachine);
         }
-        gameStateMachine.GameSelectionMediator.OnGameSelectionChanged += OnGameSelected;
+        else if(gameStateMachine.GameStateContext.States.CurrentSuperState.GetType() == typeof(PlayState)){
+            gameStateMachine.SwitchState(gameStateMachine.GameStateContext.States.CurrentSuperState);
+        }
+
+        //will have to figure out how to handle the below:
+            //When player returns from story via win/lose/exit, go to 
+            //add some check using context
         
     }
-
-
-    public override void UpdateState(GameStateMachine gameStateMachine)
-    {
-        
-        if(enterPlayState){
-            enterPlayState = false;
-            gameStateMachine.SwitchState(gameStateMachine.States.MyPlayState);
-        }
-    }
-
-    private void OnGameSelected(string selectedGameID)
-    {
-        enterPlayState = true;
-    }
+   
     
 
 }

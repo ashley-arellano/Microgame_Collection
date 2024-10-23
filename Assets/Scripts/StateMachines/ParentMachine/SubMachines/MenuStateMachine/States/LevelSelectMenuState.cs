@@ -4,22 +4,24 @@ using UnityEngine;
 using UnityEngine.UI;
 
 //concrete state of fsm
-public class LevelSelectMenuState : BaseMenuState
+public class LevelSelectMenuState : BaseState 
 {
 
     private Dictionary<string, Button> levelSelectButtons = new Dictionary<string, Button>();
 
-    public override void EnterState(MenuStateMachine menuStateMachine) {
-        // Load the scene and setup once it’s ready, passing the menuStateMachine using a lambda
-        menuStateMachine.SceneHandler.OnLoadScene("LevelSelectUI", () => SetUpState(menuStateMachine));
+    public override void EnterState(GameStateMachine gameStateMachine) {
+        // Load the scene and setup once it’s ready, passing the gameStateMachine using a lambda
+        gameStateMachine.SceneHandler.OnLoadScene("LevelSelectUI", () => SetUpState(gameStateMachine));
     }
 
-    public override void DestroyState(MenuStateMachine menuStateMachine) {
+    public override void DestroyState(GameStateMachine gameStateMachine) {
+        gameStateMachine.GameStateContext.States.LastState =
+                 gameStateMachine.GameStateContext.States.StatesDict["LevelSelectMenuState"]; 
         // Unload the scene when leaving the state
-        menuStateMachine.SceneHandler.OnUnloadScene("LevelSelectUI");
+        gameStateMachine.SceneHandler.OnUnloadScene("LevelSelectUI");
     }
 
-    public override void SetUpState(MenuStateMachine menuStateMachine) {
+    public void SetUpState(GameStateMachine gameStateMachine) {
         var uIMenuElements = GameObject.FindWithTag("ButtonPanel")?.GetComponent<UIMenuElements>();
         if (uIMenuElements == null) {
             Debug.LogError("uIMenuElements not found!");
@@ -27,12 +29,10 @@ public class LevelSelectMenuState : BaseMenuState
         }
 
         levelSelectButtons = uIMenuElements.ButtonPrefabDic;
-        InitializeButtons(menuStateMachine);
+        InitializeButtons(gameStateMachine);
     }
 
-    private void InitializeButtons(MenuStateMachine menuStateMachine) {
-        // mainMenuButtons["quitButton"].onClick.AddListener(ExitGame);
-        // mainMenuButtons["playButton"].onClick.AddListener(() => StartGame(menuStateMachine));
+    private void InitializeButtons(GameStateMachine gameStateMachine) {
         string temp = "";
         for(int i = 0; i < levelSelectButtons.Count; i++){
             temp = (i + 1).ToString();
@@ -41,21 +41,25 @@ public class LevelSelectMenuState : BaseMenuState
                 //variable to hold value to avoid issues of reference changing to 
                 //incorrect value
                 string tempCopy = temp;
-                levelSelectButtons[temp].onClick.AddListener(() => LevelSelect(tempCopy,menuStateMachine));
+                levelSelectButtons[temp].onClick.AddListener(() => LevelSelect(tempCopy,gameStateMachine));
             }
         }
-        //add whenever i actually add it to ui*
-        //levelSelectButtons["Options"].onClick.AddListener(() => OptionSSelected(menuStateMachine));
     }
 
-    private void LevelSelect(string levelNumber, MenuStateMachine menuStateMachine){
-        // Set the current selection to Level (story mode)
-        menuStateMachine.GameSelectionMediator.CurrentSelection = GameSelection.Level;
-        // Set the selected level ID, which will trigger the event
-        menuStateMachine.GameSelectionMediator.SelectedGameID = levelNumber;
-        //Destroy state
-        DestroyState(menuStateMachine);
-    }
+    private void LevelSelect(string levelNumber, GameStateMachine gameStateMachine){
+        // Save levelNumber
+        gameStateMachine.GameStateContext.GameSelectionMediator.SelectedLevelID = levelNumber;
 
+        //Switching states
+        gameStateMachine.GameStateContext.States.CurrentSuperState = 
+            gameStateMachine.GameStateContext.States.StatesDict["PlayState"];
+
+        gameStateMachine.GameStateContext.States.CurrentSubState = 
+            gameStateMachine.GameStateContext.States.StatesDict["CutsceneState"];
+
+        //or do i have it go back to menu then to play??????????
+        gameStateMachine.SwitchState(
+            gameStateMachine.GameStateContext.States.StatesDict["MenuState"]);//or should i switch to parent first?
+    }
 }
 

@@ -1,20 +1,39 @@
+using System;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine.Playables;
 
 public class States
 {
-    public MenuState MenuState{
-        get { return menuState; }
+    public Dictionary<String,BaseState> StatesDict{
+        get { return statesDict; }
     }
-    public MyPauseState MyPauseState{
-        get { return myPauseState; }
-    }
-    public MyPlayState MyPlayState{
-        get { return myPlayState; }
-    }
-    private MenuState menuState = new MenuState();
-    
-    private MyPauseState myPauseState = new MyPauseState();
+    private Dictionary<String,BaseState> statesDict = new Dictionary<String,BaseState>(){
+        {"MenuState", new MenuState()},
+        {"PlayState", new MyPlayState()},
+        {"PauseState", new MyPauseState()},
+        {"MainMenuState", new MainMenuState()},
+        {"ModeSelectMenuState", new ModeSelectMenuState()},
+        {"LevelSelectMenuState", new LevelSelectMenuState()},
+        {"OptionsMenuState", new OptionsMenuState()},
+        {"CutsceneState", new CutsceneState()},
+        {"PlayMinigamesState", new PlayMinigamesState()}
 
-    private MyPlayState myPlayState = new MyPlayState();
+    };
+    public BaseState CurrentSuperState{
+        get{return currentSuperState;}
+        set{currentSuperState=value;}
+    }
+
+    public BaseState CurrentSubState{
+        get{return currentSubState;}
+        set{currentSubState=value;}
+    }
+    public BaseState LastState{
+        get{return lastState;}
+        set{lastState=value;}
+    }
+    private BaseState currentSuperState;
+    private BaseState currentSubState;
+    private BaseState lastState;
 }
