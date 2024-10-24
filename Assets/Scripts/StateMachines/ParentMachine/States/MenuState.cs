@@ -1,19 +1,9 @@
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using System.Collections.Generic;
-using System;
-using UnityEngine.Playables;
 
 public class MenuState : BaseState
 {
-    
-   // private MenuStateMachine menuStateMachine;
-
-
     public override void DestroyState(GameStateMachine gameStateMachine)
     {
-        gameStateMachine.GameStateContext.States.LastState =
+        gameStateMachine.GameStateContext.States.LastSuperState =
                  gameStateMachine.GameStateContext.States.StatesDict["MenuState"]; 
     }
 
@@ -24,8 +14,8 @@ public class MenuState : BaseState
         //will write a conditon using context later
 
         //When Game is first launched, go to main menu
-        if (gameStateMachine.GameStateContext.States.LastState == null){
-            
+        if (gameStateMachine.GameStateContext.States.LastSuperState == null
+            && gameStateMachine.GameStateContext.States.LastSubState == null){
 
             gameStateMachine.GameStateContext.States.StatesDict["MainMenuState"].EnterState(gameStateMachine);
         }

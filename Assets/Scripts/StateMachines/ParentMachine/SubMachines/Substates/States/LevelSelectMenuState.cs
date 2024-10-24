@@ -17,7 +17,7 @@ public class LevelSelectMenuState : BaseState
     }
 
     public override void DestroyState(GameStateMachine gameStateMachine) {
-        gameStateMachine.GameStateContext.States.LastState =
+        gameStateMachine.GameStateContext.States.LastSubState =
                  gameStateMachine.GameStateContext.States.StatesDict["LevelSelectMenuState"]; 
         // Unload the scene when leaving the state
         gameStateMachine.SceneHandler.OnUnloadScene("LevelSelectUI");
@@ -49,15 +49,18 @@ public class LevelSelectMenuState : BaseState
     }
 
     private void LevelSelect(string levelNumber, GameStateMachine gameStateMachine){
+
+        Debug.Log("Inside LevelSelect");
         // Save levelNumber
         gameStateMachine.GameStateContext.GameSelectionMediator.SelectedLevelID = levelNumber;
 
         gameStateMachine.GameStateContext.States.CurrentSubState = null;
-          //  gameStateMachine.GameStateContext.States.StatesDict["CutsceneState"];
-
-        //or do i have it go back to menu then to play??????????
-        gameStateMachine.SwitchState(
+        //Destory substate
+        DestroyState(gameStateMachine);
+        //Switch superstates
+        gameStateMachine.SwitchSuperState(
             gameStateMachine.GameStateContext.States.StatesDict["PlayState"]);//or should i switch to parent first?
+    
     }
 }
 

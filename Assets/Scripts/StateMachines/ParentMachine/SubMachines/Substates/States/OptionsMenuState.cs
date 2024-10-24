@@ -14,7 +14,7 @@ public class OptionsMenuState : BaseState
     }
 
     public override void DestroyState(GameStateMachine gameStateMachine) {
-         gameStateMachine.GameStateContext.States.LastState =
+         gameStateMachine.GameStateContext.States.LastSubState =
                  gameStateMachine.GameStateContext.States.StatesDict["OptionsMenuState"];   
         // Unload the scene when leaving the state
         gameStateMachine.SceneHandler.OnUnloadScene("OptionsMenuUI");
@@ -50,17 +50,12 @@ public class OptionsMenuState : BaseState
     private void GoBackToLastState(GameStateMachine gameStateMachine){
 
 
-        var lastStateType = gameStateMachine.GameStateContext.States.LastState.GetType();
+        var lastStateType = gameStateMachine.GameStateContext.States.LastSubState.GetType();
 
         if (lastStateType == typeof(ModeSelectMenuState))
         {
             // Handle ModeSelectMenuState
-            gameStateMachine.SwitchState(gameStateMachine.GameStateContext.States.LastState);
-        }
-        else
-        {
-            // Handle other cases (default)
-            Debug.Log("Not implemented: In OptionsMenuState");
+            gameStateMachine.SwitchSubState(gameStateMachine.GameStateContext.States.LastSubState);
         }
 
     }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic; 
 
 public class GameStateContext 
 {
@@ -18,7 +16,7 @@ public class GameStateContext
     }
     
 
-    private GameSelectionMediator gameSelectionMediator;
+    private GameSelectionMediator gameSelectionMediator = new GameSelectionMediator();
 
    
     

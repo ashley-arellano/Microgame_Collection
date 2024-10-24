@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+
 
 //abstract state of fsm
 public abstract class BaseState 

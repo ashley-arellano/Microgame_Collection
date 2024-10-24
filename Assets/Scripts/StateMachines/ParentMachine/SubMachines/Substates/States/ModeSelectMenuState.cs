@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +8,7 @@ public class ModeSelectMenuState : BaseState
     public override void DestroyState(GameStateMachine gameStateMachine)
     {
         // Unload the scene when leaving the state
-        gameStateMachine.GameStateContext.States.LastState =
+        gameStateMachine.GameStateContext.States.LastSubState =
                  gameStateMachine.GameStateContext.States.StatesDict["ModeSelectMenuState"]; 
         gameStateMachine.SceneHandler.OnUnloadScene("ModeSelectUI");
     }
@@ -43,16 +42,12 @@ public class ModeSelectMenuState : BaseState
 
     private void StoryModeSelected(GameStateMachine gameStateMachine){
 
-         
-
-        gameStateMachine.SwitchState(
-            gameStateMachine.GameStateContext.States.CurrentSubState);
+        gameStateMachine.SwitchSubState(
+            gameStateMachine.GameStateContext.States.StatesDict["LevelSelectMenuState"]);
     }
     private void OptionsSelected(GameStateMachine gameStateMachine){
 
-       
-
-        gameStateMachine.SwitchState(gameStateMachine.GameStateContext.States.CurrentSubState);
+        gameStateMachine.SwitchSubState(gameStateMachine.GameStateContext.States.StatesDict["OptionsMenuState"]);
         
     }
     private void FreePlaySelected(GameStateMachine gameStateMachine){

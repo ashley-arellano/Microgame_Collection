@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine.Playables;
 
 public class States
 {
@@ -29,11 +27,16 @@ public class States
         get{return currentSubState;}
         set{currentSubState=value;}
     }
-    public BaseState LastState{
-        get{return lastState;}
-        set{lastState=value;}
+    public BaseState LastSuperState{
+        get{return lastSuperState;}
+        set{lastSuperState=value;}
+    }
+    public BaseState LastSubState{
+        get{return lastSubState;}
+        set{lastSubState=value;}
     }
     private BaseState currentSuperState;
     private BaseState currentSubState;
-    private BaseState lastState;
+    private BaseState lastSuperState;
+    private BaseState lastSubState;
 }

@@ -16,7 +16,7 @@ public class MainMenuState : BaseState
 
     public override void DestroyState(GameStateMachine gameStateMachine) {
         // Unload the scene when leaving the state
-        gameStateMachine.GameStateContext.States.LastState =
+        gameStateMachine.GameStateContext.States.LastSubState =
                  gameStateMachine.GameStateContext.States.StatesDict["MainMenuState"]; 
                  
         gameStateMachine.SceneHandler.OnUnloadScene("MainMenuUI");
@@ -51,7 +51,7 @@ public class MainMenuState : BaseState
         Debug.Log("Moving to ModeSelectUI");
         
 
-        gameStateMachine.SwitchState(gameStateMachine.GameStateContext.States.CurrentSubState);
+        gameStateMachine.SwitchSubState(gameStateMachine.GameStateContext.States.StatesDict["ModeSelectMenuState"]);
     }
 
 }

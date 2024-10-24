@@ -2,7 +2,7 @@ public class CutsceneState : BaseState
 {
     public override void DestroyState(GameStateMachine gameStateMachine)
     {
-        gameStateMachine.GameStateContext.States.LastState =
+        gameStateMachine.GameStateContext.States.LastSubState =
                  gameStateMachine.GameStateContext.States.StatesDict["CutsceneState"]; 
         //UnloadScene
     }
@@ -19,7 +19,7 @@ public class CutsceneState : BaseState
     //for now, for testing
     private void MoveToGame(GameStateMachine gameStateMachine){
        
-        gameStateMachine.SwitchState(gameStateMachine.GameStateContext.States.CurrentSubState);
+        gameStateMachine.SwitchSubState(gameStateMachine.GameStateContext.States.StatesDict["PlayMinigamesState"]);
     }
 
 }
