@@ -23,14 +23,14 @@ public class MinigameManager : MonoBehaviour
         };
     }
 
-    private MinigameScriptableObject CreateMinigame(string levelName, string description, string category, Sprite previewImage)
+    private MinigameScriptableObject CreateMinigame(string minigameName, string minigameDescription, string category, Sprite previewImage)
     {
         // Instantiate the template MinigameScriptableObject
         MinigameScriptableObject newMinigame = Object.Instantiate(minigameTemplate);
         
         // Set the unique values for this instance
-        newMinigame.LevelName = levelName;
-        newMinigame.Description = description;
+        newMinigame.MinigameName =  minigameName;
+        newMinigame.MinigameDescription = minigameDescription;
         newMinigame.Category = category;
         newMinigame.PreviewImage = previewImage;
         

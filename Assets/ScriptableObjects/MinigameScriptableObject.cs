@@ -6,19 +6,19 @@ using UnityEngine;
 //menuName = "ScriptableObjects/Minigame")]
 public class MinigameScriptableObject : ScriptableObject
 {
-    private string levelName;
-    private string levelDescription;
+    private string minigameName;
+    private string minigameDescription;
     private string category;
     private Sprite previewImage;
 
-    public string LevelName{
-        get{ return levelName; }
-        set{levelName = value;}
+    public string MinigameName{
+        get{ return minigameName; }
+        set{minigameName = value;}
     }
 
-    public string LevelDescription{
-        get{ return levelDescription; }
-        set{levelDescription = value;}
+    public string MinigameDescription{
+        get{ return minigameDescription; }
+        set{minigameDescription = value;}
     }
 
     public Sprite PreviewImage{
