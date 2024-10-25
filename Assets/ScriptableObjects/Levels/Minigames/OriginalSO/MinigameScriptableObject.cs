@@ -2,15 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// [CreateAssetMenu(fileName = "MinigameScriptableObject", 
-//menuName = "ScriptableObjects/Minigame")]
+[CreateAssetMenu(fileName = "MinigameScriptableObject", 
+menuName = "ScriptableObjects/MinigameScriptableObject")]
 public class MinigameScriptableObject : ScriptableObject
 {
+    [SerializeField]
     private string minigameName;
+    [SerializeField]
     private string minigameDescription;
+    [SerializeField]
     private string category;
+    [SerializeField]
     private Sprite previewImage;
+    [SerializeField]
+    private float timeToComplete;
 
+    public float TimeToComplete{
+        get { return timeToComplete; }
+        set { timeToComplete = value; }
+    }
     public string MinigameName{
         get{ return minigameName; }
         set{minigameName = value;}

@@ -1,11 +1,8 @@
 using System;
 
-// Used to mediate information about whether a level is selected (in story mode) in LevelSelectMenuState
-// OR to mediate information about whether a minigame is selected (in freeplay mode) in TBAState
-// by triggering events to GameStateMachine
 
-//GameSelection
-public class GameSelectionMediator
+//GameSelectionData
+public class GameSelectionData
 {
     private string selectedMinigameID; 
 

@@ -1,8 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-// [CreateAssetMenu(fileName = "LevelScriptableObject", 
-//menuName = "ScriptableObjects/Level")]
+[CreateAssetMenu(fileName = "LevelScriptableObject", 
+menuName = "ScriptableObjects/LevelScriptableObject")]
 public class LevelScriptableObject : ScriptableObject
 {
     public string LevelID
@@ -10,14 +10,14 @@ public class LevelScriptableObject : ScriptableObject
         get{ return levelID;}
         set{ levelID = value;}
     }
+    [SerializeField]
     private string levelID;
 
-    public List<MinigameScriptableObject> MinigameList{
+    public MinigameCollectionScriptableObject MinigameList{
         get{return minigameList;}
-        set{ minigameList = value;}
     }
-   
-    private List<MinigameScriptableObject> minigameList;
+   [SerializeField]
+    private MinigameCollectionScriptableObject minigameList;
 
 
 }

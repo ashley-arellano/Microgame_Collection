@@ -52,7 +52,7 @@ public class LevelSelectMenuState : BaseState
 
         Debug.Log("Inside LevelSelect");
         // Save levelNumber
-        gameStateMachine.GameStateContext.GameSelectionMediator.SelectedLevelID = levelNumber;
+        gameStateMachine.GameStateContext.GameSelectionData.SelectedLevelID = levelNumber;
 
         gameStateMachine.GameStateContext.States.CurrentSubState = null;
         //Destory substate

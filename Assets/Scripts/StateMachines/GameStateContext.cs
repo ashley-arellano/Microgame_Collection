@@ -11,12 +11,12 @@ public class GameStateContext
     //Event for LevelSelectState
 
     //not really satifised with how to get level info, hmmmmm
-    public GameSelectionMediator GameSelectionMediator{
-        get{return gameSelectionMediator;}
+    public GameSelectionData GameSelectionData{
+        get{return gameSelectionData;}
     }
     
 
-    private GameSelectionMediator gameSelectionMediator = new GameSelectionMediator();
+    private GameSelectionData gameSelectionData = new GameSelectionData();
 
    
     
