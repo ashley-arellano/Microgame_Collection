@@ -36,4 +36,19 @@ public class TimerManager : MonoBehaviour
         // Check if there are any subscribers before invoking the event
         TimesUpEvent?.Invoke(this, EventArgs.Empty);
     }
+
+    /* code to add to subscriber
+    //Will like to do get component in the end
+    [SerializeField]
+    private TimerManager timerManager;
+    
+    public void Subscribe()
+    {
+        timerManager.TimesUpEvent += TimesUpTriggered;
+    }
+
+    private void TimesUpTriggered(object sender, EventArgs e)
+    {
+        Debug.Log("Times Up!");
+    }*/
 }

@@ -18,7 +18,7 @@ public class MyPlayState : BaseState
                  gameStateMachine.GameStateContext.States.StatesDict["PlayState"];
 
         
-        if(gameStateMachine.GameStateContext.States.LastSubState.GetType() == typeof(LevelSelectMenuState) )
+        if(gameStateMachine.GameStateContext.States.LastSubState.GetType() == typeof(LevelSelectMenuState))
         {
              // Load the scene and setup once it’s ready, passing the menuStateMachine using a lambda
              Debug.Log("Insert Cutscene: Not Done yet");

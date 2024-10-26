@@ -1,28 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//
+//This is first called
+//then minigameloader is called is passed this information
 public class LevelLoader : MonoBehaviour
 {
 
     [SerializeField]
     private LevelCollectionScriptableObject allLevels;
     private LevelScriptableObject selectedLevel;
-    // Start is called before the first frame update
-    void Start()
-    {
-        //want to make dictionary 
-        //will see if possible lol
-        selectedLevel = allLevels.LevelList[0];
+ 
+    private LevelScriptableObject getLevel(GameSelectionData gameSelectionData){
+        for (int i = 0; i < allLevels.LevelList.Count; i++){
+            if(allLevels.LevelList[i].LevelID == gameSelectionData.SelectedLevelID){
+                selectedLevel = allLevels.LevelList[i];
+                return selectedLevel;
+            }
+        } 
+        return null;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void getLevel(){
-
-    }
 }
+
