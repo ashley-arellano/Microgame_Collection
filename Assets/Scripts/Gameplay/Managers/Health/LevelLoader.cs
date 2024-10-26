@@ -10,7 +10,7 @@ public class LevelLoader : MonoBehaviour
     private LevelCollectionScriptableObject allLevels;
     private LevelScriptableObject selectedLevel;
  
-    private LevelScriptableObject getLevel(GameSelectionData gameSelectionData){
+    public LevelScriptableObject getLevel(GameSelectionData gameSelectionData){
         for (int i = 0; i < allLevels.LevelList.Count; i++){
             if(allLevels.LevelList[i].LevelID == gameSelectionData.SelectedLevelID){
                 selectedLevel = allLevels.LevelList[i];
