@@ -16,6 +16,7 @@ public class MinigameScriptableObject : ScriptableObject
     private Sprite previewImage;
     [SerializeField]
     private float timeToComplete;
+    private bool isBoss;
 
     public float TimeToComplete{
         get { return timeToComplete; }
@@ -40,4 +41,11 @@ public class MinigameScriptableObject : ScriptableObject
         get{ return category; }
         set{category = value;}
     }
+
+    public bool IsBoss{
+        get{ return isBoss; }
+        set{ isBoss = value;}
+    }
+
+
 }

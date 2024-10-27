@@ -12,6 +12,10 @@ public class LevelScriptableObject : ScriptableObject
     }
     [SerializeField]
     private string levelID;
+    public int SpeedUpIntervals{
+        get{ return speedUpIntervals;}
+    }
+    private int speedUpIntervals;
 
     public MinigameCollectionScriptableObject MinigameList{
         get{return minigameList;}

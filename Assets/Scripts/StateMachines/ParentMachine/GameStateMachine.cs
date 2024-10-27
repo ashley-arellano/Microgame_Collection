@@ -1,6 +1,6 @@
 using UnityEngine;
 
-//context of fsm
+//context of hsm
 //only script to add to ui state
 public class GameStateMachine : MonoBehaviour
 {

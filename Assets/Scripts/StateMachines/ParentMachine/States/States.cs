@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 public class States
 {
-    public Dictionary<String,BaseState> StatesDict{
+    public Dictionary<string,BaseState> StatesDict{
         get { return statesDict; }
     }
-    private Dictionary<String,BaseState> statesDict = new Dictionary<String,BaseState>(){
+    private Dictionary<string,BaseState> statesDict = new Dictionary<string,BaseState>(){
         {"MenuState", new MenuState()},
         {"PlayState", new MyPlayState()},
         {"PauseState", new MyPauseState()},

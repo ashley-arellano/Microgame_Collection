@@ -10,5 +10,5 @@ public class TimerData
         set { speedFactor = value; }
     }
     private float timeRemaining = 4;
-    private float speedFactor = 4;
+    private float speedFactor = 1;
 }

@@ -9,45 +9,58 @@ public class GameSystem : MonoBehaviour
     [SerializeField]
     private LevelLoader levelLoader;
     private MinigameLoader minigameLoader;
+    
     [SerializeField]
-    private SceneHandler sceneHandler;
-    [SerializeField]
-    private TimerManager timerManager;
+    private TimerManager timerManager;  
     private HealthManager healthManager;
     private LevelScriptableObject selectedLevel;
+    [SerializeField]
+    WinLoseData winLoseData;
+    
     //have to somehow get the instance from hsm
+    [SerializeField]
     private GameSelectionData gameSelectionData;
-    private string currentMinigameID;
+
+    [SerializeField]
+    private UITransitionLoader uITransitionLoader;
     // Start is called before the first frame update
     void Start()
     {   //Level Selected
         if(gameSelectionData.SelectedLevelID != null){
             selectedLevel = levelLoader.getLevel(gameSelectionData);
-            minigameLoader = new MinigameLoader(timerManager, selectedLevel.MinigameList.MinigameList);
+            minigameLoader.SetUp(selectedLevel.MinigameList.MinigameList, selectedLevel.SpeedUpIntervals);
         }
         //Minigame Selected (Freeplay)
 
+        //Getting health manager
         healthManager = new HealthManager();
         Subscribe();
     }
+
+    //could make a WinLose Manager which has the event where bool isWin becomes true
+    //which is checked during timesupTriggered
 
     private void Subscribe()
     {
         timerManager.TimesUpEvent += TimesUpTriggered;
     }
 
+    //Function triggered by event when time runs out
     private void TimesUpTriggered(object sender, EventArgs e)
-    {   //When times up, the event triggers the load next minigame
-        string oldMinigameID = currentMinigameID;
-        currentMinigameID = minigameLoader.LoadMinigame();
-       // Pass an anonymous function that calls UnloadCurrentMinigame with the oldMinigameID
-        sceneHandler.OnLoadScene(currentMinigameID, () => UnloadCurrentMinigame(oldMinigameID));
+    {   //Play UI zoom out animation
+        if(!winLoseData.IsWin){
+            healthManager.ChangeHealth(-1);
+            //Play UI Lose animation
+        }else{
+            winLoseData.IsWin = false;
+            //Play UI Win animation
+        }
+        //When times up, the event triggers the load next minigame scene
+        minigameLoader.LoadMinigame();
+        //Play regular UI intermission transition until minigame scene is loaded
     }
 
-    private void UnloadCurrentMinigame(string oldMinigameID){
-        //Unload current minigame
-        sceneHandler.OnUnloadScene(oldMinigameID);
-    }
+    
     
 
 
