@@ -5,17 +5,14 @@ public class CanvasCameraAssigner : MonoBehaviour
     void Start()
     {
         Canvas canvas = GetComponent<Canvas>();
-        Debug.Log("Before ScreenSpaceCamera check");
-        if (canvas.renderMode == RenderMode.ScreenSpaceCamera)
+
+        // Ensure the canvas is set to ScreenSpaceCamera mode
+        canvas.renderMode = RenderMode.ScreenSpaceCamera;
+
+        Camera mainCamera = Camera.main;
+        if (mainCamera != null)
         {
-            Debug.Log("after ScreenSpaceCamera check");
-            Camera mainCamera = Camera.main;
-            if (mainCamera != null)
-            {
-                Debug.Log("assignming camera");
-                canvas.worldCamera = mainCamera;
-            }
+            canvas.worldCamera = mainCamera;
         }
     }
 }
-
