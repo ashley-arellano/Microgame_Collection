@@ -26,5 +26,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GamePlay/GameSystem.unity
     guid: 22bdd0b1f9ed14e4b8c1d152310f7ec6
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/Minigames/Snip and Shine.unity
+    guid: 96ccf83e23c5d7a499f5828c6f75973c
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/Minigames/Poppin' Rush.unity
+    guid: 3d7fab8306d81eb428c2653050c8c109
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9ceaa2626b6b41e4bb106fa6e623e60b, type: 2}

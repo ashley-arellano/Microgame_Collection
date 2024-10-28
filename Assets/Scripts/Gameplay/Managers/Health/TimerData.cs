@@ -1,4 +1,5 @@
-public class TimerData 
+using UnityEngine;
+public class TimerData : MonoBehaviour
 {
     public float TimeRemaining{
         get { return timeRemaining; }

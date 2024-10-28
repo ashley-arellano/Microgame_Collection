@@ -8,8 +8,8 @@ public class TimerManager : MonoBehaviour
     private TimerData timerData;
     private float actualTimeRemaining;
 
-    void Start(){
-        timerData = new TimerData();
+    public void SetUp(TimerData timerData){
+        this.timerData = timerData;
     }
 
     void Update()

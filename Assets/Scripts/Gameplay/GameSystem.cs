@@ -14,6 +14,7 @@ public class GameSystem : MonoBehaviour
     private HealthManager healthManager;
     private LevelScriptableObject selectedLevel;
     private WinLoseData winLoseData;
+    private TimerData timerData;
     
     //have to somehow get the same instance from hsm
     private GameSelectionData gameSelectionData;
@@ -34,8 +35,12 @@ public class GameSystem : MonoBehaviour
                 winLoseData = targetObject.GetComponent<WinLoseData>();
             }
 
+            if(timerData == null){
+                timerData = targetObject.GetComponent<TimerData>();
+            }
+
             // Exit loop early if both components are found
-            if (gameSelectionData != null && winLoseData != null)
+            if (gameSelectionData != null && winLoseData != null && timerData != null)
             {
                 break;
             }
@@ -44,11 +49,15 @@ public class GameSystem : MonoBehaviour
        
         timerManager = GetComponent<TimerManager>();
         levelLoader = GetComponent<LevelLoader>();
+        minigameLoader = GetComponent<MinigameLoader>();
 
         //Level Selected
         if(gameSelectionData.SelectedLevelID != null){
             selectedLevel = levelLoader.getLevel(gameSelectionData);
-            minigameLoader.SetUp(selectedLevel.MinigameList.MinigameList, selectedLevel.SpeedUpIntervals);
+            minigameLoader.SetUp(selectedLevel.MinigameList.MinigameList, selectedLevel.SpeedUpIntervals, timerData);
+            timerManager.SetUp(timerData);
+            //temp*************************************
+            minigameLoader.LoadMinigame();
         }
         //Minigame Selected (Freeplay)
 
@@ -69,9 +78,11 @@ public class GameSystem : MonoBehaviour
     private void TimesUpTriggered(object sender, EventArgs e)
     {   //Play UI zoom out animation
         if(!winLoseData.IsWin){
+            Debug.Log("Lost");
             healthManager.ChangeHealth(-1);
             //Play UI Lose animation
         }else{
+            Debug.Log("Won");
             winLoseData.IsWin = false;
             //Play UI Win animation
         }
@@ -79,6 +90,14 @@ public class GameSystem : MonoBehaviour
         minigameLoader.LoadMinigame();
         //Play regular UI intermission transition until minigame scene is loaded
     }
+
+//play intermission ui animation during which minigame is loaded (minigame is loaded is done by minigameLoaded)
+//zoom in minigame (ui animation)
+//do minigame 
+//zoom out minigame
+//play  intermission animation during which minigame is loaded (minigame is loaded is done by minigameLoaded)
+
+
 
     
     

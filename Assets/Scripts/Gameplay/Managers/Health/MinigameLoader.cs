@@ -9,9 +9,8 @@ using UnityEngine;
 public class MinigameLoader: MonoBehaviour
 {
    // private TimerManager timerManager;
-   [SerializeField]
+   
     private TimerData timerData;
-    [SerializeField]
     private SceneHandler sceneHandler;
     private List<MinigameScriptableObject> minigameList;
     private string currentMinigameID;
@@ -20,9 +19,11 @@ public class MinigameLoader: MonoBehaviour
     private int speedUpIntervals;
     private int speedFactor = 1;
 
-    public void SetUp(List<MinigameScriptableObject> minigameList, int speedUpIntervals){
+    public void SetUp(List<MinigameScriptableObject> minigameList, int speedUpIntervals, TimerData timerData){
+        sceneHandler = GetComponent<SceneHandler>();
         this.minigameList = minigameList;
         this.speedUpIntervals = speedUpIntervals;
+        this.timerData = timerData;
         RandomizeMinigame(minigameList.Count);
     }
 
@@ -50,6 +51,10 @@ public class MinigameLoader: MonoBehaviour
 
         // Pass an anonymous function that calls UnloadCurrentMinigame with the oldMinigameID
             sceneHandler.OnLoadScene(currentMinigameID, () => UnloadCurrentMinigame(oldMinigameID));
+        }else{
+            //temp *************************
+            sceneHandler.OnLoadScene("LevelSelectUI");
+            sceneHandler.OnUnloadScene(currentMinigameID);
         }
     }
 
@@ -65,8 +70,10 @@ public class MinigameLoader: MonoBehaviour
     }
 
     public void UnloadCurrentMinigame(string oldMinigameID){
-        //Unload current minigame
-        sceneHandler.OnUnloadScene(oldMinigameID);
+        if(oldMinigameID != null){
+            //Unload current minigame
+            sceneHandler.OnUnloadScene(oldMinigameID);
+        }
     }
 
     private void RandomizeMinigame(int size){
