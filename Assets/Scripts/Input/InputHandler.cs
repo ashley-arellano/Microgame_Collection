@@ -24,9 +24,9 @@ public class InputHandler : MonoBehaviour
         private set{isClicked=value;}
     }
     private void Awake(){
-        //User Interaction
-        clickPositionAction = playerInput.actions["ClickPosition"];
-        clickAction = playerInput.actions["Interact"];
+        //User Interaction (Default Map is Player)
+        clickPositionAction = playerInput.actions["Point"];
+        clickAction = playerInput.actions["Click"];
     }
 
     private void Start(){
@@ -34,13 +34,9 @@ public class InputHandler : MonoBehaviour
     }
 
     private void Update(){
-        try {
-            //Debug.Log("in update");
+       
         isClicked = clickAction.triggered;
-        //clickInput = clickPositionAction.ReadValue<Vector2>();
-        } catch (Exception e) {
-            Debug.LogError($"Error handling input: {e.Message}");
-        }
+        clickInput = clickPositionAction.ReadValue<Vector2>();
         
     }
 
