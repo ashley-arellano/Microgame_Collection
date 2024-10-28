@@ -1,8 +1,9 @@
 using System;
+using UnityEngine;
 
 
 //GameSelectionData
-public class GameSelectionData
+public class GameSelectionData: MonoBehaviour
 {
     private string selectedMinigameID; 
 

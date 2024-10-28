@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
+using System;
+
 
 // This class handles interaction triggers with the player
 public class InputHandler : MonoBehaviour
@@ -36,11 +34,13 @@ public class InputHandler : MonoBehaviour
     }
 
     private void Update(){
-        //User Interaction via click
-        
+        try {
+            //Debug.Log("in update");
         isClicked = clickAction.triggered;
-        //gets the position of where the mouse click happened
-        clickInput = clickPositionAction.ReadValue<Vector2>();
+        //clickInput = clickPositionAction.ReadValue<Vector2>();
+        } catch (Exception e) {
+            Debug.LogError($"Error handling input: {e.Message}");
+        }
         
     }
 

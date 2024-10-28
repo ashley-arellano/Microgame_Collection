@@ -6,26 +6,46 @@ using System;
 //attached to a gameobject in scene GameSystem
 public class GameSystem : MonoBehaviour
 {
-    [SerializeField]
+    //will have to add a uiTransitionHandler later
     private LevelLoader levelLoader;
     private MinigameLoader minigameLoader;
     
-    [SerializeField]
     private TimerManager timerManager;  
     private HealthManager healthManager;
     private LevelScriptableObject selectedLevel;
-    [SerializeField]
-    WinLoseData winLoseData;
+    private WinLoseData winLoseData;
     
-    //have to somehow get the instance from hsm
-    [SerializeField]
+    //have to somehow get the same instance from hsm
     private GameSelectionData gameSelectionData;
 
-    [SerializeField]
-    private UITransitionLoader uITransitionLoader;
     // Start is called before the first frame update
     void Start()
-    {   //Level Selected
+    {   
+        GameObject[] targetObjects = GameObject.FindGameObjectsWithTag("DataHolder");
+
+        foreach (GameObject targetObject in targetObjects){
+            if (gameSelectionData == null)
+            {
+                gameSelectionData = targetObject.GetComponent<GameSelectionData>();
+            }
+
+            if (winLoseData == null)
+            {
+                winLoseData = targetObject.GetComponent<WinLoseData>();
+            }
+
+            // Exit loop early if both components are found
+            if (gameSelectionData != null && winLoseData != null)
+            {
+                break;
+            }
+        }
+
+       
+        timerManager = GetComponent<TimerManager>();
+        levelLoader = GetComponent<LevelLoader>();
+
+        //Level Selected
         if(gameSelectionData.SelectedLevelID != null){
             selectedLevel = levelLoader.getLevel(gameSelectionData);
             minigameLoader.SetUp(selectedLevel.MinigameList.MinigameList, selectedLevel.SpeedUpIntervals);

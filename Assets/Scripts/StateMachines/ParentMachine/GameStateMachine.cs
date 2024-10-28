@@ -10,6 +10,10 @@ public class GameStateMachine : MonoBehaviour
     }
     [SerializeField]
     private SceneHandler sceneHandler;
+    public GameSelectionData GameSelectionData{
+        get{return gameSelectionData;}
+    }
+    private GameSelectionData gameSelectionData;
     // private BaseState currentState;
     public GameStateContext GameStateContext{
         get{return gameStateContext;}
@@ -28,6 +32,7 @@ public class GameStateMachine : MonoBehaviour
         
         //gameSelectionMediator = new GameSelectionMediator();
         gameStateContext = new GameStateContext();
+        gameSelectionData = GameObject.FindWithTag("DataHolder").GetComponent<GameSelectionData>();
 
         //starting state for game state machine
        // currentState = gameStateContext.States.StatesDict["MenuState"];
