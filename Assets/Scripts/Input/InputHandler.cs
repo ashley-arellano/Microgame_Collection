@@ -1,19 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
+using System;
 
-// This class handles interaction triggers with the player
+//Handles input received from the player, including mouse clicks and their positions.
 public class InputHandler : MonoBehaviour
 {
+    //Reference to the Player Input component that maps player input actions.
     [SerializeField]
     private PlayerInput playerInput; 
+    //Input action for detecting click events.
     private InputAction clickAction;
+    //Input action for detecting the position of the click
     private InputAction clickPositionAction;
-    
+    //Stores the position of the player's click in screen space.
     private Vector2 clickInput;
+    //Indicates whether the player has clicked.
     private bool isClicked;
   
     public Vector2 ClickInput{
@@ -26,9 +27,10 @@ public class InputHandler : MonoBehaviour
         private set{isClicked=value;}
     }
     private void Awake(){
-        //User Interaction
-        clickPositionAction = playerInput.actions["ClickPosition"];
-        clickAction = playerInput.actions["Interact"];
+        //User Interaction (Default Map is Player)
+        //Initializes input actions for clicking and click position.
+        clickPositionAction = playerInput.actions["Point"];
+        clickAction = playerInput.actions["Click"];
     }
 
     private void Start(){
@@ -36,10 +38,8 @@ public class InputHandler : MonoBehaviour
     }
 
     private void Update(){
-        //User Interaction via click
-        
+       //Updates whether the click action was triggered and stores the position.
         isClicked = clickAction.triggered;
-        //gets the position of where the mouse click happened
         clickInput = clickPositionAction.ReadValue<Vector2>();
         
     }

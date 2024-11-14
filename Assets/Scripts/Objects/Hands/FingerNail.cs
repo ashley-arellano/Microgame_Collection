@@ -1,17 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//finger nails will be prefabs lol
-//just with different sprites
+//TODO: Fix code to current game system
 public class FingerNail : MonoBehaviour, IInteractable
 {
     private bool isPainted;
-    //default non-painted finger sprite (attached to same object)
+    //default non-painted fingernail sprite (attached to same object)
     private SpriteRenderer spriteRenderer;
-    //Painted finger sprite
+    //Painted fingernail sprite
     [SerializeField]
     private Sprite newSprite;
-    //will be called by hand to see if all fingers are painted
     public bool IsPainted{
         get{return isPainted;}
     }
@@ -30,7 +28,7 @@ public class FingerNail : MonoBehaviour, IInteractable
         isPainted = true;
     }
     
-
+    //assigns new sprite
     private void ChangeSprite(){
         spriteRenderer.sprite = newSprite; 
     }
