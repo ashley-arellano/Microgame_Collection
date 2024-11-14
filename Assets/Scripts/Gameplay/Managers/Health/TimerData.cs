@@ -1,4 +1,5 @@
 using UnityEngine;
+//Class that holds mutable data related to the timer of a minigame
 public class TimerData : MonoBehaviour
 {
     public float TimeRemaining{

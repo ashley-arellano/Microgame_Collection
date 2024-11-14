@@ -1,22 +1,11 @@
 
-public class GameStateContext 
-{
-    public States States{
-        get{return states;}
+public class GameStateContext{
+    //Public property to access the current game states
+    public States States
+    {
+        get { return states; }
     }
+
+    //Instance of States, initialized by default
     private States states = new States();
-
-    //Data to pass to states
-
-    //Event for LevelSelectState
-
-    //not really satifised with how to get level info, hmmmmm
-    
-    
-
-  
-
-   
-    
-
 }

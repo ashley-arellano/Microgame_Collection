@@ -1,25 +1,35 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+//Handles transitioning between scenes
 public class SceneHandler : MonoBehaviour
 {
-    private static IEnumerator LoadNewScene(string newSceneName, System.Action onSceneLoaded = null) {
+    // Loads a new scene additively and calls onSceneLoaded when done
+    private static IEnumerator LoadNewScene(string newSceneName, System.Action onSceneLoaded = null)
+    {
         var asyncLoad = SceneManager.LoadSceneAsync(newSceneName, LoadSceneMode.Additive);
-        while (!asyncLoad.isDone) {
+        
+        // Wait until the scene is fully loaded
+        while (!asyncLoad.isDone)
+        {
             Debug.Log("Loading the Scene");
             yield return null;
         }
+        
         Debug.Log("Scene Loaded");
-        onSceneLoaded?.Invoke();
+        onSceneLoaded?.Invoke(); // Invoke callback if provided
     }
 
-    public void OnLoadScene(string newSceneName, System.Action onSceneLoaded = null) {
+    // Public method to start loading a new scene with an optional callback
+    public void OnLoadScene(string newSceneName, System.Action onSceneLoaded = null)
+    {
         StartCoroutine(LoadNewScene(newSceneName, onSceneLoaded));
     }
 
-    public void OnUnloadScene(string oldSceneName) {
+    // Unloads the specified scene
+    public void OnUnloadScene(string oldSceneName)
+    {
         SceneManager.UnloadSceneAsync(oldSceneName);
     }
 }
-
 

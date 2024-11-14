@@ -1,9 +1,8 @@
 using UnityEngine;
-//testing that repo is added correctly
-//so goes together on interactable object with its respective inheritance script
+
+//Script attached to interactable object with its interface script
 public class InteractionHandler : MonoBehaviour
 {
-    
     private InputHandler inputHandler;
     private IInteractable interactedObj;
     private bool isClicked;
@@ -20,9 +19,9 @@ public class InteractionHandler : MonoBehaviour
             //Check what was hit 
             if(hit != null){
                 Debug.Log("Hit!");
-                // Use the hit variable to determine what was clicked on.
+                //Use the hit variable to determine what was clicked on.
                 interactedObj = hit.gameObject.GetComponent<IInteractable>();
-                // If the object is interactable, trigger the interaction
+                //If the object is interactable, trigger the interaction
                 if (interactedObj != null){
                     interactedObj.OnInteract();
                 }
@@ -31,12 +30,10 @@ public class InteractionHandler : MonoBehaviour
     }
 
     private void Update()
-    {
+    {   
+        //Updates check if the player has clicked interctable object
        if (inputHandler.IsClicked){
             isClicked = true;
         }
     }
 }
-  // Create a ray into the screen at the position of the mouse pointer.
-           // Vector2 point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            //Physics2D.OverlapPoint could used instead, if i don't care about radius

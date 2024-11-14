@@ -1,7 +1,6 @@
 using UnityEngine;
+//Implements methods for all objects that are interactable
 public interface IInteractable{
-    // is-a relationship
-    //actions to be taken when interacted with
-    //Collider2D player
+    //action to be taken when first interacted with
     void OnInteract();
 }

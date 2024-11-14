@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//So minigame scene changes the value here when its event triggers a win
-//this data is grabbed by gamesystem scene
+
+//Class that contains mutable data relating to if player wins or loses minigame
 public class WinLoseData : MonoBehaviour
 {
     public bool IsWin{

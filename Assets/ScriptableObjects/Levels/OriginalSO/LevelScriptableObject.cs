@@ -1,27 +1,35 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+// ScriptableObject representing a level, containing level-specific data and references to minigame collections
 [CreateAssetMenu(fileName = "LevelScriptableObject", 
-menuName = "ScriptableObjects/LevelScriptableObject")]
+                 menuName = "ScriptableObjects/LevelScriptableObject")]
 public class LevelScriptableObject : ScriptableObject
 {
-    public string LevelID
-    {
-        get{ return levelID;}
-        set{ levelID = value;}
+    // Property for getting or setting the unique identifier of the level
+    public string LevelID {
+        get { return levelID; }
+        set { levelID = value; }
     }
+    
+    // Serialized field to store the unique ID of the level
     [SerializeField]
     private string levelID;
-    public int SpeedUpIntervals{
-        get{ return speedUpIntervals;}
+
+    // Property for getting the number of speed-up intervals in the level
+    public int SpeedUpIntervals {
+        get { return speedUpIntervals; }
     }
+
+    // Serialized field to store the number of speed-up intervals in the level
     private int speedUpIntervals;
 
-    public MinigameCollectionScriptableObject MinigameList{
-        get{return minigameList;}
+    // Property for getting the minigame collection associated with this level
+    public MinigameCollectionScriptableObject MinigameList {
+        get { return minigameList; }
     }
-   [SerializeField]
+
+    // Serialized field for storing a reference to a minigame collection for this level
+    [SerializeField]
     private MinigameCollectionScriptableObject minigameList;
-
-
 }

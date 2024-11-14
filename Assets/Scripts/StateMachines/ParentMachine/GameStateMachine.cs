@@ -1,7 +1,7 @@
 using UnityEngine;
 
-//context of hsm
-//only script to add to ui state
+//context of hierarchical state machine
+//Handles the current state of the game (menu, play, pause)
 public class GameStateMachine : MonoBehaviour
 {
    
@@ -14,7 +14,7 @@ public class GameStateMachine : MonoBehaviour
         get{return gameSelectionData;}
     }
     private GameSelectionData gameSelectionData;
-    // private BaseState currentState;
+
     public GameStateContext GameStateContext{
         get{return gameStateContext;}
     }
@@ -25,40 +25,22 @@ public class GameStateMachine : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //temp for now; going to add scene handler which will have a thing
-        //that subcribes to when a new scene is loaded and done being loaded
-        //and this will be the function that is called for it***
         
-        
-        //gameSelectionMediator = new GameSelectionMediator();
         gameStateContext = new GameStateContext();
         gameSelectionData = GameObject.FindWithTag("DataHolder").GetComponent<GameSelectionData>();
 
-        //starting state for game state machine
-       // currentState = gameStateContext.States.StatesDict["MenuState"];
-        //gameStateContext.States.CurrentSuperState = currentState;
+        //starting states for game state machine
         gameStateContext.States.CurrentSubState = null;
         gameStateContext.States.LastSubState = null;
         gameStateContext.States.LastSuperState = null;
 
-        //"this" is a reference to the context (this exact script)
+        //enter state
         gameStateContext.States.StatesDict["MenuState"].EnterState(this);
     }
 
-    //transition through states
-    // public void SwitchState(BaseState state){
-    //     // If we currently have state, then destroy it
-    //     if (currentState != null){
-    //         currentState.DestroyState(this);
-    //     }
-    //     currentState = state;
-    //     currentState.EnterState(this);
-    // }
-
     public void SwitchSuperState(BaseState state){
         // If we currently have state, then destroy it
-
-        //Current State is Parent States
+        //Current State is Parent State
         if(gameStateContext.States.CurrentSuperState != null){
                 gameStateContext.States.CurrentSuperState.DestroyState(this);
         }
@@ -66,6 +48,8 @@ public class GameStateMachine : MonoBehaviour
     }
 
     public void SwitchSubState(BaseState state){
+        // If we currently have state, then destroy it
+        //Current State is Child State
         if (gameStateContext.States.CurrentSubState != null){
             gameStateContext.States.CurrentSubState.DestroyState(this);
         }
@@ -74,14 +58,3 @@ public class GameStateMachine : MonoBehaviour
     }
    
 }
-
-
-
- // Update is called once per frame
-    // void Update()
-    // {
-    //     if(currentState != null){
-    //        currentState.UpdateState(this);
-    //     }
-        
-    // }

@@ -1,63 +1,72 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+//Concrete class of GameStateMachine (hierarchical state machine)
 public class OptionsMenuState : BaseState 
 {
+    //Dictionary to hold buttons in the options menu
     private Dictionary<string, Button> mainMenuButtons = new Dictionary<string, Button>();
 
-    public override void EnterState(GameStateMachine gameStateMachine) {
-         gameStateMachine.GameStateContext.States.CurrentSubState = 
-                gameStateMachine.GameStateContext.States.StatesDict["OptionsMenuState"];
-        // Load the scene and setup once it’s ready, passing the gameStateMachine using a lambda
+    //Called when entering the options menu state
+    public override void EnterState(GameStateMachine gameStateMachine) 
+    {
+        //Set the current substate to OptionsMenuState
+        gameStateMachine.GameStateContext.States.CurrentSubState = 
+            gameStateMachine.GameStateContext.States.StatesDict["OptionsMenuState"];
+        
+        //Load the OptionsMenuUI scene and run setup once loaded
         gameStateMachine.SceneHandler.OnLoadScene("OptionsMenuUI", () => SetUpState(gameStateMachine));
     }
 
-    public override void DestroyState(GameStateMachine gameStateMachine) {
-         gameStateMachine.GameStateContext.States.LastSubState =
-                 gameStateMachine.GameStateContext.States.StatesDict["OptionsMenuState"];   
-        // Unload the scene when leaving the state
+    //Called when exiting the options menu state
+    public override void DestroyState(GameStateMachine gameStateMachine) 
+    {
+        //Set the last substate to OptionsMenuState
+        gameStateMachine.GameStateContext.States.LastSubState =
+            gameStateMachine.GameStateContext.States.StatesDict["OptionsMenuState"];   
+        
+        //Unload the OptionsMenuUI scene
         gameStateMachine.SceneHandler.OnUnloadScene("OptionsMenuUI");
     }
 
-    public void SetUpState(GameStateMachine gameStateMachine) {
-        //we need another way to grab the buttons
-        //maybe
+    //Sets up the options menu UI and initializes buttons after loading the scene
+    public void SetUpState(GameStateMachine gameStateMachine) 
+    {
         var uIMenuElements = GameObject.FindWithTag("ButtonPanel")?.GetComponent<UIMenuElements>();
 
-        if (uIMenuElements == null) {
+        if (uIMenuElements == null) 
+        {
             Debug.LogError("Button panel not found!");
             return;
         }
 
+        //Retrieve button references
         mainMenuButtons = uIMenuElements.ButtonPrefabDic;
         InitializeButtons(gameStateMachine);
     }
 
-    private void InitializeButtons(GameStateMachine gameStateMachine) {
+    //Adds listeners to buttons in the options menu
+    private void InitializeButtons(GameStateMachine gameStateMachine) 
+    {
         mainMenuButtons["Apply"].onClick.AddListener(ApplySettings);
         mainMenuButtons["Back"].onClick.AddListener(() => GoBackToLastState(gameStateMachine));
     }
 
-    private void ApplySettings(){
+    //Placeholder for applying settings action
+    private void ApplySettings()
+    {
         Debug.Log("TBA: Apply settings");
-        //do most games kick you out of it? idk
-
     }
 
-    //has to be fixed
-
-    private void GoBackToLastState(GameStateMachine gameStateMachine){
-
-
+    //Handles returning to the previous menu state
+    private void GoBackToLastState(GameStateMachine gameStateMachine)
+    {
         var lastStateType = gameStateMachine.GameStateContext.States.LastSubState.GetType();
 
         if (lastStateType == typeof(ModeSelectMenuState))
         {
-            // Handle ModeSelectMenuState
+            //Switch to the previous menu state
             gameStateMachine.SwitchSubState(gameStateMachine.GameStateContext.States.LastSubState);
         }
-
     }
-    
 }

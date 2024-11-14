@@ -1,14 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//TODO: Fix code to current game system
 public class Hand : MonoBehaviour
 {
     [SerializeField]
     private List<FingerNail> state;
     private bool win;
     private int counter;
-    //used by winlose script
     public bool Win{
         get { return win; }
     }
